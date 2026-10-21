@@ -23,18 +23,16 @@ We then optimize the ideation **harness** with the same Harness²-style optimize
 
 | | Result | Verdict |
 |---|---|---|
-| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (7.5 → 8.2, p = .018) while precision collapses from .78 to .29 and SV falls from 1.62 to 0.62 per run. On a private transfer space, the judge score rises from 6.6 to 8.8 while precision falls from .40 to .03. With Opus as generator, precision again collapses (.79 → .25), but SV does not fall. The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. | P1 supported |
+| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (Sonnet 7.5 → 8.2, p = .018; Opus 8.2 → 8.9, p < .001) while precision collapses (stage 5, 24 fresh runs per arm: Sonnet .79 → .43, Opus .87 → .28; on a private transfer space .40 → .03). The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. The stage-2 drop in surprising-valid claims (1.62 → 0.62) did **not** replicate at larger n: the judge arm moves along the frontier to low precision and low prior. | P1, A-prec, A-judge supported; A-SV not replicated |
 | **Validity fitness plays safe** | The validity-optimized harness restricts itself to mechanical claim types. The mean prior rises by 6 points, the set of distinct claims narrows, and neither precision nor SV improves. | P2 supported |
 | **SV fitness does not help** | No candidate beat direct generation. After a bug fix and a rerun, the one accepted candidate regressed on fresh runs from 1.67 to 1.25 (winner's curse). | P3 refuted |
-| **M. Measurement does not reliably help either** | Before proposing, the harness may run 20–400 real experiments: one edit on one parent cell, measured on the test split (truth uses the val split). With Sonnet, precision collapses to .42–.61 and SV does not rise. With Opus, a first batch looked positive, but 8 more runs per arm showed that the first control batch was low (1.00 vs 2.00 for the same harness). Pooled over 16 runs, the best arm (100 actively designed probes, 2.12 vs 1.50) gives Holm p = .074, and the independent replication alone is negative. | M1, M2 inconclusive; confirmation not passed |
+| **M. Measurement pushes the frontier, for one model** | Before proposing, the model designs 100 experiments (one edit on one parent cell; measured on the test split, truth uses val) and reads the results. With Opus, SV doubles from 1.08 to 2.12 per run (24 fresh runs per arm, 90% CI [+0.54, +1.58], Holm p = .003) at .75 precision; the arm scored 2.12 in all three independent batches. With Sonnet, SV does not move (+0.04, CI upper bound +0.38) and precision collapses (.79 → .45), matching an earlier pilot in which Sonnet followed noise-level measurements 94% of the time under a reconsider prompt vs 41% for Opus. | Stage 5 M: Opus supported, Sonnet refuted |
 | **D. The frontier does not move** | 18 harnesses across two generators were tested on fresh runs; none beats plain direct generation on SV after Holm correction (largest gain +0.25 per run). On Sonnet, lowering the prior costs precision (ρ = .87 across 13 harnesses); on Opus, the frontier shape is inconclusive (ρ = .40, 5 harnesses). | D1 supported, D2 inconclusive |
 
 **Takeaway.**
-- An LLM judge is an exploitable target for ideation optimization.
-- Harness engineering that only changes the model's internal reasoning (retrieval, roles, challenge, selection, strategy text) trades precision against surprise, but in this setting it does not produce more claims that are both true and surprising.
-- Adding a few real measurements did not reliably help either.
-- With 8 runs per arm, two batches of the same harness can differ by up to 1 SV per run, so these null results only rule out gains larger than about 1 SV per run.
-- Direct generation is 3–7× cheaper and sits on or near the frontier.
+- An LLM judge is an exploitable target for ideation optimization: it rewards moving away from the prior and pays for it in precision.
+- Harness engineering that only changes the model's internal reasoning (retrieval, roles, challenge, selection, strategy text) trades precision against surprise along a frontier; it does not push the frontier.
+- Letting the model design and read a small number of real experiments can double the true-and-surprising findings, but only for a model that discounts single observations; the same measurements wreck precision for another model.
 
 The full report is in Chinese: [REPORT.md](REPORT.md). It covers background, related work, every stage, verdicts, limitations, and cost.
 
@@ -50,6 +48,7 @@ experiments/harness/
   s2.py, s2_analyze.py          stage 2: one optimizer, three fitness functions; stage 3: fixed SV arm, Opus generator
   s3_analyze.py                 stage 3: frontier test (claim D)
   s4.py                         stage 4: measurement knob (random / actively designed probes before proposing)
+  s5.py                         stage 5: 24-run confirmation of A and M for both generators
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
@@ -59,7 +58,7 @@ experiments/harness/
 ```bash
 pip install -r requirements.txt
 cd experiments/harness
-python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze   # no API calls, reads the caches
+python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze   # no API calls, reads the caches
 python3 ../../figures/make_frontier.py
 ```
 
@@ -68,7 +67,8 @@ Producing new runs needs the `claude` CLI. Every role is one `claude -p --tools 
 ## Scope and caveats
 
 - **Single training space.** NB201 is familiar to the models: direct generation already reaches .78 precision. The private CTR transfer space used in the original study is not released, so only aggregate numbers are reported.
-- **Small optimization and evaluation budgets.** Each arm ran 3 rounds × 3 candidates × 6 runs, and each harness got 8 fresh runs. Two independent batches of direct generation differ by 0.37 SV per run.
+- **Small optimization and evaluation budgets.** Each arm ran 3 rounds × 3 candidates × 6 runs. Most harnesses got 8 fresh runs, and only the three key arms got 24 in stage 5. Two batches of 8 runs of the same harness can differ by up to 1 SV per run.
+- **Measurements are table lookups.** They are seed-averaged values, so they are cleaner than real experiments; M is untested under noisy measurement.
 - **Claude-only model panel.** The judge and proposer are both Opus, and the prior panel contains only Claude models.
 - **A regex bug**, now fixed, rejected 3 candidates in stage 2. See REPORT.md §5.4.
 - **Claim D was formed after stage 2.** Its test (stage 3) was pre-registered.
