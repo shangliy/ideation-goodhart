@@ -1,0 +1,182 @@
+{
+ "arm": "SV",
+ "final": {
+  "retrieval": "none",
+  "roles": "single",
+  "challenge": "none",
+  "pool": 10,
+  "select": "likely_true",
+  "select_rule": "",
+  "strategy": ""
+ },
+ "final_score": {
+  "fit": 1.5,
+  "tok": 5155.166666666667,
+  "n": 6
+ },
+ "log": [
+  {
+   "round": 0,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": ""
+   },
+   "score": 1.5,
+   "tokens": 5155,
+   "status": "start",
+   "n": 6
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "negate",
+    "pool": 20,
+    "select": "prior_avoid",
+    "select_rule": "",
+    "strategy": "Most intuitive conditional claims assume each component's contribution follows a simple mechanistic story (a component matters more when its substitute is absent). Instead, look for interactions driven by: (1) headroom - parents that are already strong leave little room, so usually-helpful edits help less and usually-harmful edits hurt more; (2) redundancy and saturation, where adding more of a strong option gives diminishing or negative returns; (3) floor effects, where very weak parents make harmful edits look harmless; (4) sign reversals, where an edit that is normally bad becomes good in a specific context. Prefer conditions that apply to many parents so the effect is statistically detectable. For each hypothesis, state the conventional prediction and explain why the measured data could plausibly show the opposite.",
+    "rationale": "Negating default assumptions and oversampling for low-prior ideas aims directly at true surprises, while the headroom and saturation guidance keeps them grounded in effects that commonly hold, at about 20k tokens."
+   },
+   "status": "rejected: strategy uses space-specific term 'conventional'"
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "none",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Keep hypotheses whose direction contradicts the most obvious mechanistic intuition but is supported by a general statistical principle (headroom, saturation, redundancy, regression toward the mean). Drop any whose condition is rare or whose effect would be tiny. Prefer variety across edited fields.",
+    "strategy": "Focus on what conventional knowledge does not settle: how an edit's effect depends on the quality and composition of the parent configuration, not just on local structure. Propose hypotheses in which the parent condition changes the effect through global properties: capacity already present, duplication of the same option, removal of alternatives, or the parent already sitting near a performance ceiling or floor. Include some hypotheses where replacing an option with itself or with a similar option is predicted to behave counter-intuitively. Avoid restating 'X matters more when Y is missing' unless you expect the opposite.",
+    "rationale": "A gap-driven innovator plus a critic, with a custom rule that rewards counter-intuitive directions backed by robust statistical mechanisms, should raise both truth rate and surprise at about 30k tokens."
+   },
+   "status": "rejected: strategy uses space-specific term 'conventional'"
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "cross_domain",
+    "roles": "gap_innovator",
+    "challenge": "flaw",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Borrow interaction patterns from other empirical sciences: epistasis in genetics (the effect of one mutation depends on genetic background, and beneficial mutations help fitter backgrounds less), diminishing returns in economics, and redundancy in engineered systems. Translate each pattern into a concrete conditional hypothesis about how an edit's effect varies with the parent configuration. Favor predictions that a practitioner thinking only mechanistically would get wrong, especially background-dependent sign changes and weaker gains in already-strong parents. Use conditions that many parents satisfy. In the flaw step, discard analogies that do not transfer and keep only those with a plausible general reason to hold."
+   },
+   "score": 0.5,
+   "tokens": 23317,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Cross-domain literature on epistasis and diminishing returns supplies well-established non-obvious interaction patterns that ML-focused models underrate, and the flaw step filters out analogies that don't transfer, at about 30k tokens."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 20,
+    "select": "prior_avoid",
+    "select_rule": "",
+    "strategy": "Most obvious hypotheses follow a local story: an option matters more when its substitute is missing. These are usually rated likely and often fail. Instead, base hypotheses on robust statistical regularities. (1) Headroom: helpful edits help less in parents that are already strong, for example parents that already contain the strongest option elsewhere. (2) Harmful edits hurt more in strong parents and look harmless in weak parents, because of floor effects. (3) Saturation: adding a second copy of a strong option gives smaller gains than adding the first. (4) Removing an option costs less when the parent has several similar options. Choose conditions that many parents satisfy, so the effect is detectable. Cover several edited fields and both directions. In each 'why', state the obvious prediction and the reason the opposite should hold."
+   },
+   "score": 1.33,
+   "tokens": 14275,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Oversampling with prior_avoid, steered toward headroom, floor and saturation effects that tend to hold but are rated unlikely, aims directly at true surprises for about 12-15k tokens."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "negate",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "After listing and negating default assumptions, keep only the negations that a general mechanism supports. Candidate mechanisms: parent quality (strong parents leave little room to improve and have more to lose), redundancy (duplicate or similar options dilute each other's contribution), and bottlenecks (an option matters little when it is not on the path to the output, however strong it is). Prefer predictions in which a usually helpful edit becomes neutral or harmful in a common context, or a usually harmful edit becomes harmless. Avoid conditions that only a few parents satisfy. Spread hypotheses across different edited fields and condition fields. Give at least four 'lower' predictions where the intuitive guess would be 'higher'."
+   },
+   "score": 1.33,
+   "tokens": 6804,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Negating defaults, then requiring a general mechanism such as headroom, redundancy or bottlenecks, should raise surprise without losing truth rate, at about 12k tokens."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Keep hypotheses whose direction goes against the first intuitive guess but which a reported empirical regularity or a general statistical effect (headroom, floor, saturation, redundancy) supports. Drop those with rare conditions or tiny expected effects. Keep variety across edited fields.",
+    "strategy": "Use the retrieved literature to find measured interaction patterns, not design advice: reports that an option's benefit shrinks, vanishes or reverses depending on what else is present, or that strong configurations respond differently from weak ones. Translate each reported pattern into a conditional hypothesis about this benchmark. Write queries about interactions, diminishing returns and context-dependent effects among components. Include hypotheses in which strong parents gain less from improvements and lose more from degradations. Choose conditions that many parents satisfy."
+   },
+   "score": 0.67,
+   "tokens": 17514,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Grounding counter-intuitive directions in empirically reported interaction patterns should give hypotheses that are true but low-prior, at about 25k tokens."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Before writing hypotheses, decide which field values typically appear in strong configurations and which in weak ones. A condition that fixes such a value mostly selects strong (or weak) parents. Use this deliberately. Strong parents have little room left, so edits that usually help gain less there, and edits that usually hurt lose more. Weak parents sit near a floor, so harmful edits cost little and helpful edits gain a lot. Write at least six hypotheses where this quality effect predicts the opposite direction to the most obvious story about how the parts connect. Write the remaining ones on the strongest effects you are confident in. Use only conditions that many parents satisfy. Spread hypotheses across edited fields and edit values. In each 'why', name the quality mechanism."
+   },
+   "score": 0.83,
+   "tokens": 6017,
+   "status": "not better",
+   "n": 6,
+   "rationale": "At baseline cost, this steers every surprise toward the headroom and floor regularity, which holds reliably in measured data but is easy to overlook."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 30,
+    "select": "custom",
+    "select_rule": "Keep hypotheses whose direction contradicts the first intuitive guess but follows from parent quality (headroom, floor), saturation or redundancy. Drop rare conditions, tiny expected effects and pure connectivity stories. Keep at least five different edited fields or edit values.",
+    "strategy": "Propose many diverse conditional hypotheses. For each one, first write the direction a quick reader would predict. Then ask whether the condition mostly picks out strong or weak parents, or parents that already contain the edited value or a close substitute. If it does, the measured effect is often the opposite of the quick prediction: gains shrink in strong parents, losses shrink in weak parents, and adding something already present gives little. Include edits that remove options, edits that swap between similar options, and edits toward the option that is usually best. State the direction your reasoning supports, even when it is the less intuitive one. Use conditions that hold for a large share of parents."
+   },
+   "score": 0.17,
+   "tokens": 16175,
+   "status": "not better",
+   "n": 6,
+   "rationale": "A large pool filtered by a strict custom rule should concentrate the ten slots on hypotheses that are both counter-intuitive and backed by robust statistical regularities, at about 15k tokens."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "flaw",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Treat the gaps as statistical, not mechanistic. Ask how the base rate of each condition, the quality of the parents it selects, and the spread of outcomes change an edit's average effect. Propose hypotheses where these factors outweigh the obvious story about how parts connect. Examples are an edit that helps less in parents already near the top, a removal that hurts less in parents already near the bottom, and a swap toward an option that the parent already contains elsewhere giving diminishing returns. At least half should predict the less intuitive direction. In the flaw step, discard any hypothesis whose condition is rare, whose effect would be small relative to noise, or whose reasoning depends only on a connectivity story. Replace each one with a hypothesis based on parent quality or saturation."
+   },
+   "score": 1.17,
+   "tokens": 26881,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Pointing the gap finder and the flaw step at statistical rather than connectivity reasoning should cut the false hypotheses that hurt earlier multi-step harnesses, while keeping surprise high at about 30k tokens."
+  }
+ ]
+}

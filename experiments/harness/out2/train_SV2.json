@@ -1,0 +1,185 @@
+{
+ "arm": "SV2",
+ "final": {
+  "retrieval": "none",
+  "roles": "single",
+  "challenge": "none",
+  "pool": 30,
+  "select": "custom",
+  "select_rule": "Keep hypotheses you rate at least 55% likely true but expect other models to rate below 50%, and name the specific naive reasoning that would mislead them. Drop anything you rate below 50% yourself, and anything obvious from structure alone. Keep fields and directions diverse.",
+  "strategy": "Propose a broad, varied set of conditional hypotheses covering many different edited fields, conditioning fields and both directions. For each, briefly note your own probability that it holds and how an intuitive reader would judge it."
+ },
+ "final_score": {
+  "fit": 1.6666666666666667,
+  "tok": 17484.166666666668,
+  "n": 6
+ },
+ "log": [
+  {
+   "round": 0,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": ""
+   },
+   "score": 1.42,
+   "tokens": 5249,
+   "status": "start",
+   "n": 12
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "negate",
+    "pool": 20,
+    "select": "prior_avoid",
+    "select_rule": "",
+    "strategy": "Obvious hypotheses (an edit matters more when an alternative path is removed; strong components help more when connected) score zero even if true. Target effects that real measurements often show but intuition misses: ceiling effects (a normally helpful edit helps less, or hurts, when the parent is already strong); redundancy (two strong components in parallel are worth less than either alone suggests); substitution (a cheap or 'weak' option beats a strong one when capacity elsewhere is high); and sign reversals of an edit's usual effect under specific conditions. Each hypothesis needs a concrete mechanism. Vary the edited field and the conditioning field across hypotheses, and include both HIGHER and LOWER directions."
+   },
+   "score": 1.0,
+   "tokens": 14787,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Negating defaults and then selecting for low prior probability goes straight at the 'others rate under 50%' half of the score, while the mechanism requirement keeps the true-rate up."
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "gap_innovator",
+    "challenge": "none",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Rank by: plausible mechanism supported by known empirical regularities (saturation, redundancy, optimization difficulty, capacity trade-offs) AND a direction most practitioners would not predict. Drop hypotheses that merely restate that removing a path increases the importance of the remaining ones.",
+    "strategy": "Use the gap list to find interactions the literature leaves unsettled. Prefer conditional effects driven by diminishing returns: an edit's benefit shrinks when the parent already has that capability elsewhere, and a removal costs little when redundant capacity exists. Also consider optimization effects: extra parameters or depth can hurt in some contexts, while simple identity-like options can help trainability. Avoid hypotheses whose condition simply disconnects or trivializes the edited component. Spread hypotheses across different edited fields, conditions and both directions."
+   },
+   "score": 0.17,
+   "tokens": 23315,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Field literature plus a gap finder grounds the surprising claims in documented phenomena, raising the fraction that are true, and the custom rule explicitly filters out the obvious connectivity hypotheses that dominated the baseline."
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "cross_domain",
+    "roles": "single",
+    "challenge": "flaw",
+    "pool": 30,
+    "select": "custom",
+    "select_rule": "Keep hypotheses that survived the flaw check, have a direction a typical expert would bet against, and rest on a concrete mechanism. Ensure diversity of edited fields and conditions, and include both HIGHER and LOWER directions.",
+    "strategy": "Borrow mechanisms from the retrieved fields: diminishing marginal returns, substitutes versus complements, bottlenecks (improving a non-bottleneck component does nothing), and over-provisioning penalties. Translate each into a conditional claim about when an edit's effect is larger or smaller. Favour claims where the naive expectation is wrong, for example an edit that usually helps but helps less, or hurts, once the parent already has a strong component in a parallel role, or a usually harmful edit that becomes harmless when it is not on the bottleneck. Avoid restating that removing an alternative path makes the remaining path matter more."
+   },
+   "score": 1.0,
+   "tokens": 32899,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Cross-domain analogies supply non-obvious but often-valid mechanisms, the flaw pass removes implausible ones, and the large pool lets selection keep only the surprising survivors, all within about 30k tokens."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 20,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Measured interaction effects are dominated by a few robust regularities: an edit's effect is larger when the parent is weak overall and smaller when the parent is already strong (ceiling and floor); a component's removal costs less when another component already fills the same role; and an edit's effect changes most when the conditioning field controls the main bottleneck. Build each hypothesis on one of these, stated as a specific conditional. Prefer conditions that change overall parent quality substantially over conditions with subtle effects. Do not chase counterintuitive sign reversals. Spread hypotheses across different edited and conditioning fields, and use both HIGHER and LOWER directions roughly equally."
+   },
+   "score": 0.83,
+   "tokens": 14439,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Over-proposing and picking the most robust ceiling/floor and redundancy interactions should raise the true rate above baseline, while conditional phrasing keeps rater confidence below 50%."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "flaw",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Aim for hypotheses you believe are about 60-75% likely to hold but that a careful expert would call uncertain: conditional effects rather than main effects. Good sources are diminishing returns (an improving edit helps less when the parent already has a similar strong component), damage concentration (a harmful edit hurts more when the parent has few alternative routes or little spare capacity), and asymmetry (adding a capability and removing it need not have mirror-image effects). Each hypothesis should name the mechanism in one sentence. Avoid claims that are merely definitional or true by construction, and avoid claims that need an unusual sign reversal to be true."
+   },
+   "score": 0.83,
+   "tokens": 13224,
+   "status": "not better",
+   "n": 6,
+   "rationale": "A flaw pass at low cost removes fragile or definitional claims, while targeting the 60-75% band should place more true hypotheses under raters' 50% threshold."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Keep hypotheses whose mechanism is supported by a retrieved empirical finding or a widely replicated regularity, but whose conditional form is not commonly stated. Drop hypotheses that are obvious restatements of main effects. Keep diversity of fields and both directions.",
+    "strategy": "Use the retrieved abstracts to identify interaction patterns that were actually measured (for example saturation of gains in strong configurations, redundancy among components serving the same role, or trainability trade-offs). Turn each into a conditional claim about when a one-field edit's effect is larger or smaller. Ground every hypothesis in measured evidence or a robust regularity rather than speculation. Prefer conditions that strongly shift overall parent quality or remove a substitute. Vary edited fields and conditions, and balance HIGHER and LOWER."
+   },
+   "score": 1.33,
+   "tokens": 18077,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Literature-grounded but plain single-generator proposals, with selection for evidence-backed yet unstated conditional forms, should raise both the true rate and the surprise rate without the overhead that hurt the earlier gap/innovator run."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Before proposing, recall specific measured results you know from published evaluations of this benchmark or closely related ones: which options actually performed well or badly, which results surprised the original authors, and where measured rankings contradicted common design heuristics. Build each hypothesis from such a remembered empirical fact rather than from first-principles reasoning about structure. Skip hypotheses that follow trivially from disconnecting or removing a path; those are already expected. Keep only claims you believe are more likely true than not. Vary the edited and conditioning fields, and include both HIGHER and LOWER directions.",
+    "rationale": "Remembered empirical quirks are true but often missed by other models reasoning from first principles, and this adds almost no cost over the best harness."
+   },
+   "status": "rejected: strategy uses space-specific term 'Skip'"
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Read the retrieved abstracts for measured results that contradict common heuristics: options that were expected to be weak but did well, gains that vanished in strong configurations, or components whose value depended on what else was present. Turn each such finding into a conditional claim about when a one-field edit's effect is larger or smaller. Each hypothesis must cite the kind of evidence it rests on in one sentence. Avoid hypotheses that only restate that removing an alternative path makes the remaining path matter more. Vary the edited and conditioning fields, and balance HIGHER and LOWER."
+   },
+   "score": 0.83,
+   "tokens": 9930,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Keeps the evidence-grounding of the strongest non-baseline run but drops the costly selection step, and aims retrieval at counter-heuristic measurements rather than generic regularities."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 30,
+    "select": "custom",
+    "select_rule": "Keep hypotheses you rate at least 55% likely true but expect other models to rate below 50%, and name the specific naive reasoning that would mislead them. Drop anything you rate below 50% yourself, and anything obvious from structure alone. Keep fields and directions diverse.",
+    "strategy": "Propose a broad, varied set of conditional hypotheses covering many different edited fields, conditioning fields and both directions. For each, briefly note your own probability that it holds and how an intuitive reader would judge it."
+   },
+   "score": 1.67,
+   "tokens": 17484,
+   "status": "accepted",
+   "n": 6,
+   "rationale": "Selects directly on the gap between the generator's calibrated belief and naive expectation, which is exactly what the scoring rule rewards, without pushing for risky sign reversals."
+  }
+ ]
+}

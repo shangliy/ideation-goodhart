@@ -1,0 +1,188 @@
+{
+ "arm": "J",
+ "final": {
+  "retrieval": "none",
+  "roles": "gap_innovator_critic",
+  "challenge": "negate",
+  "pool": 20,
+  "select": "custom",
+  "select_rule": "Discard any hypothesis whose condition is the edited field's own current value, or whose condition merely disables or disconnects the edited component. From the rest, keep 10 with distinct mechanisms and field pairs, favouring those where an informed expert could plausibly bet on either direction.",
+  "strategy": "Two patterns are banned because experts find them obvious: (1) conditioning on the current value of the same field being edited, which just restates that upgrading a weak setting helps more than upgrading a strong one; (2) conditions that make the edited component unused, unreachable or inert. Instead, each hypothesis must link two DIFFERENT fields that interact through a non-trivial mechanism, such as substitution between parallel routes, a capacity already supplied elsewhere, one part acting as a bottleneck for another, or interference that turns a usually helpful edit harmful. No condition setting may appear in more than two hypotheses. Use the gaps and negated assumptions as the source of each idea. In each 'why', name the mechanism and explain why the opposite direction is also a priori plausible."
+ },
+ "final_score": {
+  "fit": 8.333333333333334,
+  "tok": 33450.666666666664,
+  "n": 6
+ },
+ "log": [
+  {
+   "round": 0,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": ""
+   },
+   "score": 7.67,
+   "tokens": 5155,
+   "status": "start",
+   "n": 6
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "flaw",
+    "pool": 20,
+    "select": "prior_avoid",
+    "select_rule": "",
+    "strategy": "Before proposing, briefly model the system: which components carry most of the signal, which are redundant, and where saturation, bottlenecks or substitution between components could occur. Then propose hypotheses that each test a DIFFERENT mechanism (e.g., redundancy, saturation/diminishing returns, bottleneck, interference, compensation, sign reversal). Prefer interactions where the intuitive answer is plausibly wrong, including cases where a usually helpful edit should help LESS or even hurt. Use varied edit fields, condition fields and both directions; no two hypotheses may share the same edit-condition pair or the same underlying reason. Each 'why' must name a concrete mechanism and what pattern would falsify it, not just say a component 'matters more'."
+   },
+   "score": 8.0,
+   "tokens": 25360,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Over-generating mechanism-diverse hypotheses, stress-testing each for flaws, and keeping those other models would not propose targets both the novelty and the quality halves of the score at moderate cost."
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "negate",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Use the gaps and negated assumptions as the main source of ideas: each hypothesis should exploit a specific open question or a default assumption that may fail under some parent condition. Aim for conditional effects that are non-obvious but mechanistically grounded: diminishing returns when a capacity is already present, substitution between alternative paths, edits that only matter when another part is a bottleneck, and reversals where a normally good edit becomes harmful. Cover a broad spread of edit fields, condition fields and both directions, with no duplicate rationales. State in each 'why' the mechanism and the observable result that would contradict it."
+   },
+   "score": 8.17,
+   "tokens": 20946,
+   "status": "accepted",
+   "n": 6,
+   "rationale": "Negating practitioner defaults and explicitly mapping knowledge gaps should push the innovator toward surprising yet principled interactions, while the critic replaces weak or redundant ones to protect quality."
+  },
+  {
+   "round": 1,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "single",
+    "challenge": "none",
+    "pool": 30,
+    "select": "custom",
+    "select_rule": "Choose 10 that together cover the most distinct mechanisms, edit fields and condition fields; prefer clear, falsifiable claims that go beyond well-known findings yet have a concrete mechanistic rationale; include both directions; drop near-duplicates and claims merely restating main effects.",
+    "strategy": "Use the retrieved literature to identify what is already well established about main effects, then deliberately go one step further: propose conditional effects the literature implies but does not directly test, or where findings conflict. Draw on general mechanisms such as redundancy, bottlenecks, saturation, interference between components and compensation. Span many different edit and condition fields, propose some LOWER-direction hypotheses where a common edit is predicted to help less, and make each 'why' specific enough that a single comparison could refute it."
+   },
+   "score": 8.17,
+   "tokens": 20382,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Literature grounding helps the generator avoid restating known effects, and a large pool with a diversity-and-falsifiability selection rule should yield a broader, sharper set of 10."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "negate",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Discard any hypothesis whose condition is the edited field's own current value, or whose condition merely disables or disconnects the edited component. From the rest, keep 10 with distinct mechanisms and field pairs, favouring those where an informed expert could plausibly bet on either direction.",
+    "strategy": "Two patterns are banned because experts find them obvious: (1) conditioning on the current value of the same field being edited, which just restates that upgrading a weak setting helps more than upgrading a strong one; (2) conditions that make the edited component unused, unreachable or inert. Instead, each hypothesis must link two DIFFERENT fields that interact through a non-trivial mechanism, such as substitution between parallel routes, a capacity already supplied elsewhere, one part acting as a bottleneck for another, or interference that turns a usually helpful edit harmful. No condition setting may appear in more than two hypotheses. Use the gaps and negated assumptions as the source of each idea. In each 'why', name the mechanism and explain why the opposite direction is also a priori plausible."
+   },
+   "score": 8.33,
+   "tokens": 33450,
+   "status": "accepted",
+   "n": 6,
+   "rationale": "Keeps the best pipeline but removes the trivial same-field and dead-component hypotheses that dominated its output, adding a filter step to enforce this."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "cross_domain",
+    "roles": "gap_innovator",
+    "challenge": "flaw",
+    "pool": 20,
+    "select": "prior_avoid",
+    "select_rule": "",
+    "strategy": "Use the retrieved work from other fields as a source of mechanisms that transfer to this system: redundancy and robustness in networks, complementarity versus substitution of inputs, bottlenecks and rate limits in flows, diminishing returns, and interference between processes. For each hypothesis, state which borrowed mechanism it instantiates, and use every mechanism at most twice. Do not condition on the current value of the edited field itself, and do not use conditions that simply make the edited part unused or disconnected; experts see both as obvious. Prefer interactions between two different fields where the predicted direction contradicts the naive expectation. Spread hypotheses across many edit fields and condition fields and both directions. In each 'why', give the mechanism and the specific comparison that would refute it."
+   },
+   "score": 7.67,
+   "tokens": 37142,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Borrowing mechanisms from outside fields and selecting for low prior probability should raise novelty, while the flaw step and the anti-triviality bans protect quality."
+  },
+  {
+   "round": 2,
+   "harness": {
+    "retrieval": "none",
+    "roles": "single",
+    "challenge": "negate",
+    "pool": 30,
+    "select": "custom",
+    "select_rule": "Reject any hypothesis whose condition is the edited field's own value or makes the edit inert, and reject any that restates a main effect. Keep 10 with distinct mechanisms, no repeated condition setting more than twice, both directions, and the most surprising yet mechanistically defensible claims.",
+    "strategy": "Generate widely, then let selection prune. Each hypothesis must couple two different fields: the condition should change HOW the edit works, not whether the edited part is used at all. Draw on the negated default assumptions, for example that a stronger setting is always better, that effects are additive, or that more paths always help. Propose cases of saturation when an equivalent capacity already exists elsewhere, compensation where one part masks another's weakness, and reversals where a usually beneficial edit hurts under a specific configuration. Do not explain a hypothesis by saying an edit is inert, or by saying that upgrading a weak setting helps more than upgrading a strong one. In each 'why', state the mechanism concisely and say what observation would refute it."
+   },
+   "score": 8.0,
+   "tokens": 19767,
+   "status": "not better",
+   "n": 6,
+   "rationale": "A cheap single generator with a large pool and a strict selection rule trades role overhead for breadth, letting the filter keep only non-trivial cross-field interactions."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "negate",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Discard hypotheses conditioning on the edited field's own value or making the edit inert. Keep 10 spanning at least five mechanism families, with at most two resting on redundancy or substitution, preferring those with a two-sided argument and a sharp refuting comparison.",
+    "strategy": "Experts find three patterns obvious: conditioning on the edited field's own value, conditions that make the edit inert, and 'capacity is already supplied elsewhere, so the edit adds less'. At most two hypotheses may rest on that last redundancy argument. Draw the rest from distinct mechanism families. Optimization and gradient flow: an edit changes trainability depending on another part. Signal scale or variance: summing or merging streams changes magnitudes. Effective depth versus width. Regularization or overfitting: added capacity hurts when another part already fits easily. Complementarity: two different component types help more together than either predicts alone. Each hypothesis must couple two different fields, and no condition setting may appear more than twice. Write each 'why' in two parts: the mechanism and the outcome it predicts, then the strongest argument for the opposite direction and why you reject it."
+   },
+   "score": 7.83,
+   "tokens": 38708,
+   "status": "not better",
+   "n": 6,
+   "rationale": "The best harness's outputs collapse onto one redundancy mechanism with thin reasoning, so capping that mechanism and requiring two-sided reasoning should raise both novelty and quality at similar cost."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "in_domain",
+    "roles": "gap_innovator",
+    "challenge": "negate",
+    "pool": 20,
+    "select": "custom",
+    "select_rule": "Drop hypotheses conditioning on the edited field itself, making the edit inert, or restating literature findings. Keep 10 with distinct mechanisms and field pairs, at most two redundancy-based, favouring claims the literature leaves open or contradicts.",
+    "strategy": "Use the retrieved literature to list what is already known about main effects and simple interactions. The gap finder should name interactions the literature has not tested or reports inconsistently. Each hypothesis must target one such gap and couple two different fields. Do not condition on the edited field's own value or on settings that make the edit inert. At most two hypotheses may argue 'an equivalent capacity exists elsewhere'. Prefer mechanisms such as trainability and gradient flow, scale mismatch when streams are merged, regularization versus capacity, effective depth, and complementarity between different component types. Include both directions and some cases where a usually helpful edit hurts. In each 'why', cite which gap or negated assumption the hypothesis comes from, state the mechanism, and name the single comparison that would refute it."
+   },
+   "score": 8.17,
+   "tokens": 29599,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Replacing the critic with grounding in the benchmark's own literature should steer the gap finder away from textbook-obvious interactions while staying under budget."
+  },
+  {
+   "round": 3,
+   "harness": {
+    "retrieval": "none",
+    "roles": "gap_innovator_critic",
+    "challenge": "flaw",
+    "pool": 10,
+    "select": "likely_true",
+    "select_rule": "",
+    "strategy": "Naive reasoning predicts substitution: if something similar exists elsewhere, an edit helps less. Experts find this obvious, so at most two hypotheses may use it. At least three hypotheses must predict the opposite, complementarity, where an edit helps MORE because a different kind of component elsewhere supplies what it lacks. At least two must predict a reversal, where a usually beneficial edit becomes harmful under a specific condition through trainability, merged-signal scale, or over-capacity. Never condition on the edited field's own value or on settings that make the edit inert. Each hypothesis must couple two different fields, and no condition setting may appear more than twice. In each 'why', give the mechanism in two or three sentences, state why an expert might bet the other way, and name the refuting comparison. The critic should replace any hypothesis that duplicates another's mechanism."
+   },
+   "score": 8.17,
+   "tokens": 30518,
+   "status": "not better",
+   "n": 6,
+   "rationale": "Direction and mechanism quotas break the monotone substitution pattern, and the critic plus flaw challenge improves rigour without the cost of a selection step."
+  }
+ ]
+}

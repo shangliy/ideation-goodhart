@@ -1,0 +1,56 @@
+{
+ "summary": {
+  "nb|BASE": {
+   "n": 8,
+   "judge": 7.5,
+   "valid": 7.75,
+   "prec": 0.775,
+   "sv": 1.625,
+   "prior": 62.73125,
+   "distinct": 36,
+   "tok": 5340.875
+  },
+  "nb|final_J": {
+   "n": 8,
+   "judge": 8.25,
+   "valid": 2.875,
+   "prec": 0.2875,
+   "sv": 0.625,
+   "prior": 56.7,
+   "distinct": 70,
+   "tok": 33117.0
+  },
+  "nb|final_V": {
+   "n": 8,
+   "judge": 8.375,
+   "valid": 7.875,
+   "prec": 0.7875000000000001,
+   "sv": 1.125,
+   "prior": 68.8875,
+   "distinct": 32,
+   "tok": 23195.375
+  },
+  "nb|final_SV": {
+   "n": 8,
+   "judge": 7.5,
+   "valid": 7.75,
+   "prec": 0.775,
+   "sv": 1.625,
+   "prior": 62.73125,
+   "distinct": 36,
+   "tok": 5340.875
+  }
+ },
+ "verdicts": {
+  "P1": "SUPPORT",
+  "P2": "SUPPORT",
+  "P3": "REFUTE",
+  "main line": "NOT SUPPORTED"
+ },
+ "p": {
+  "judge_J": 0.0184,
+  "sv_J": 0.991,
+  "sv_SV_base": 0.6372,
+  "sv_SV_V": 0.2362
+ }
+}

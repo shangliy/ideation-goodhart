@@ -1,0 +1,3267 @@
+{
+ "BASE": {
+  "harness": {
+   "retrieval": "none",
+   "roles": "single",
+   "challenge": "none",
+   "pool": 10,
+   "select": "likely_true",
+   "select_rule": "",
+   "strategy": ""
+  },
+  "runs": [
+   {
+    "on": 10,
+    "valid": 9,
+    "sv": 1,
+    "prec": 0.9,
+    "prior": 65.35,
+    "tok": 5427,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "none",
+      1,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 1,
+    "prec": 0.8,
+    "prior": 68.6,
+    "tok": 6195,
+    "claims": [
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 1,
+    "prec": 0.7,
+    "prior": 65.1,
+    "tok": 5821,
+    "claims": [
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "none",
+      4,
+      "none",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      4,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      2,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 1,
+    "prec": 0.8,
+    "prior": 68.55,
+    "tok": 5883,
+    "claims": [
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_1x1",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 9,
+    "sv": 1,
+    "prec": 0.9,
+    "prior": 70.35,
+    "tok": 6031,
+    "claims": [
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "none",
+      0,
+      "none",
+      1
+     ],
+     [
+      1,
+      "none",
+      5,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 5,
+    "sv": 0,
+    "prec": 0.5,
+    "prior": 61.5,
+    "tok": 5823,
+    "claims": [
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      2,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 2,
+    "prec": 0.8,
+    "prior": 68.6,
+    "tok": 5814,
+    "claims": [
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      1,
+      "none",
+      2,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 9,
+    "sv": 1,
+    "prec": 0.9,
+    "prior": 74.35,
+    "tok": 5388,
+    "claims": [
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "none",
+      4,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      0,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   }
+  ]
+ },
+ "final_J": {
+  "harness": {
+   "retrieval": "none",
+   "roles": "gap_innovator_critic",
+   "challenge": "negate",
+   "pool": 20,
+   "select": "custom",
+   "select_rule": "Discard any hypothesis whose condition is the edited field's own current value, or whose condition merely disables or disconnects the edited component. From the rest, keep 10 with distinct mechanisms and field pairs, favouring those where an informed expert could plausibly bet on either direction.",
+   "strategy": "Two patterns are banned because experts find them obvious: (1) conditioning on the current value of the same field being edited, which just restates that upgrading a weak setting helps more than upgrading a strong one; (2) conditions that make the edited component unused, unreachable or inert. Instead, each hypothesis must link two DIFFERENT fields that interact through a non-trivial mechanism, such as substitution between parallel routes, a capacity already supplied elsewhere, one part acting as a bottleneck for another, or interference that turns a usually helpful edit harmful. No condition setting may appear in more than two hypotheses. Use the gaps and negated assumptions as the source of each idea. In each 'why', name the mechanism and explain why the opposite direction is also a priori plausible."
+  },
+  "runs": [
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 2,
+    "prec": 0.3,
+    "prior": 51.0,
+    "tok": 33458,
+    "claims": [
+     [
+      2,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      2,
+      "avg_pool_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "skip_connect",
+      4,
+      "skip_connect",
+      -1
+     ],
+     [
+      0,
+      "skip_connect",
+      5,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 5,
+    "sv": 2,
+    "prec": 0.5,
+    "prior": 38.4,
+    "tok": 36738,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "skip_connect",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      4,
+      "skip_connect",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      3,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "none",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "skip_connect",
+      1,
+      "avg_pool_3x3",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 1,
+    "prec": 0.3,
+    "prior": 41.85,
+    "tok": 33948,
+    "claims": [
+     [
+      3,
+      "skip_connect",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "none",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "none",
+      2,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      4,
+      "skip_connect",
+      -1
+     ],
+     [
+      2,
+      "skip_connect",
+      0,
+      "nor_conv_3x3",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 1,
+    "sv": 0,
+    "prec": 0.1,
+    "prior": 50.45,
+    "tok": 35929,
+    "claims": [
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      0,
+      "avg_pool_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      1,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "none",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      2,
+      "avg_pool_3x3",
+      -1
+     ],
+     [
+      5,
+      "skip_connect",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "skip_connect",
+      0,
+      "nor_conv_3x3",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 3,
+    "prec": 0.3,
+    "prior": 40.25,
+    "tok": 35079,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      0,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      0,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      2,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      2,
+      "skip_connect",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "skip_connect",
+      1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 0,
+    "sv": 0,
+    "prec": 0.0,
+    "prior": 40.25,
+    "tok": 33934,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      3,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      3,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      3,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 1,
+    "prec": 0.3,
+    "prior": 37.65,
+    "tok": 35086,
+    "claims": [
+     [
+      5,
+      "skip_connect",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      4,
+      "skip_connect",
+      5,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      3,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      4,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      2,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 2,
+    "sv": 0,
+    "prec": 0.2,
+    "prior": 54.8,
+    "tok": 33637,
+    "claims": [
+     [
+      3,
+      "skip_connect",
+      5,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      1,
+      "avg_pool_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_1x1",
+      0,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "skip_connect",
+      4,
+      "skip_connect",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      2,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ "final_V": {
+  "harness": {
+   "retrieval": "in_domain",
+   "roles": "gap_innovator_critic",
+   "challenge": "none",
+   "pool": 10,
+   "select": "likely_true",
+   "select_rule": "",
+   "strategy": "Use retrieved findings to classify settings as strong, weak, neutral or harmful, and to identify which settings can disconnect other parts from the outcome. Propose hypotheses only of two kinds. Self-conditioning: the edit's effect depends on the value it replaces, being more negative when that value is strong and more positive when it is empty or harmful. Disconnection: when the edited part cannot influence the outcome, its effect shrinks toward zero, so the direction is lower if the edit usually helps and higher if it usually hurts. Directions refer to the signed effect. For each hypothesis, state the edit's usual sign and a one-sentence mechanism. Cover varied edit fields and values. The critic should replace any hypothesis with an uncertain usual sign, competing effects or reliance on partial redundancy."
+  },
+  "runs": [
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 1,
+    "prec": 0.8,
+    "prior": 71.75,
+    "tok": 25363,
+    "claims": [
+     [
+      3,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "none",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 0,
+    "prec": 0.7,
+    "prior": 69.85,
+    "tok": 25576,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "none",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "none",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 6,
+    "sv": 2,
+    "prec": 0.6,
+    "prior": 54.3,
+    "tok": 24739,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "none",
+      1
+     ],
+     [
+      1,
+      "nor_conv_1x1",
+      1,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 2,
+    "prec": 0.8,
+    "prior": 68.05,
+    "tok": 25497,
+    "claims": [
+     [
+      0,
+      "none",
+      1,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "none",
+      1,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_1x1",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 2,
+    "prec": 0.7,
+    "prior": 62.15,
+    "tok": 23982,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "none",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_1x1",
+      2,
+      "avg_pool_3x3",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 1,
+    "prec": 0.7,
+    "prior": 60.7,
+    "tok": 24542,
+    "claims": [
+     [
+      0,
+      "none",
+      1,
+      "none",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 6,
+    "sv": 1,
+    "prec": 0.6,
+    "prior": 56.2,
+    "tok": 25333,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "none",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      2,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 9,
+    "sv": 1,
+    "prec": 0.9,
+    "prior": 67.75,
+    "tok": 25226,
+    "claims": [
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "none",
+      0,
+      "none",
+      1
+     ],
+     [
+      4,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   }
+  ]
+ },
+ "SV_prior_avoid": {
+  "harness": {
+   "retrieval": "none",
+   "roles": "single",
+   "challenge": "none",
+   "pool": 20,
+   "select": "prior_avoid",
+   "select_rule": "",
+   "strategy": "Most obvious hypotheses follow a local story: an option matters more when its substitute is missing. These are usually rated likely and often fail. Instead, base hypotheses on robust statistical regularities. (1) Headroom: helpful edits help less in parents that are already strong, for example parents that already contain the strongest option elsewhere. (2) Harmful edits hurt more in strong parents and look harmless in weak parents, because of floor effects. (3) Saturation: adding a second copy of a strong option gives smaller gains than adding the first. (4) Removing an option costs less when the parent has several similar options. Choose conditions that many parents satisfy, so the effect is detectable. Cover several edited fields and both directions. In each 'why', state the obvious prediction and the reason the opposite should hold."
+  },
+  "runs": [
+   {
+    "on": 10,
+    "valid": 4,
+    "sv": 2,
+    "prec": 0.4,
+    "prior": 60.15,
+    "tok": 14946,
+    "claims": [
+     [
+      0,
+      "nor_conv_1x1",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "skip_connect",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "none",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 1,
+    "prec": 0.3,
+    "prior": 76.1,
+    "tok": 15526,
+    "claims": [
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "none",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_1x1",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_1x1",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 4,
+    "sv": 1,
+    "prec": 0.4,
+    "prior": 66.7,
+    "tok": 15831,
+    "claims": [
+     [
+      5,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "none",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "none",
+      4,
+      "skip_connect",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      1,
+      "none",
+      5,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 3,
+    "sv": 0,
+    "prec": 0.3,
+    "prior": 68.1,
+    "tok": 15841,
+    "claims": [
+     [
+      5,
+      "avg_pool_3x3",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      5,
+      "skip_connect",
+      4,
+      "skip_connect",
+      -1
+     ],
+     [
+      2,
+      "none",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 4,
+    "sv": 0,
+    "prec": 0.4,
+    "prior": 80.6,
+    "tok": 16414,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 1,
+    "sv": 0,
+    "prec": 0.1,
+    "prior": 77.45,
+    "tok": 14740,
+    "claims": [
+     [
+      5,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "none",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_1x1",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      1,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 1,
+    "prec": 0.8,
+    "prior": 60.8,
+    "tok": 14547,
+    "claims": [
+     [
+      5,
+      "none",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "none",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "none",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "none",
+      1,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      1,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 5,
+    "sv": 0,
+    "prec": 0.5,
+    "prior": 61.3,
+    "tok": 15964,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "none",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "avg_pool_3x3",
+      0,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "none",
+      5,
+      "nor_conv_3x3",
+      1
+     ]
+    ]
+   }
+  ]
+ },
+ "SV_cross_domain": {
+  "harness": {
+   "retrieval": "cross_domain",
+   "roles": "gap_innovator",
+   "challenge": "flaw",
+   "pool": 10,
+   "select": "likely_true",
+   "select_rule": "",
+   "strategy": "Borrow interaction patterns from other empirical sciences: epistasis in genetics (the effect of one mutation depends on genetic background, and beneficial mutations help fitter backgrounds less), diminishing returns in economics, and redundancy in engineered systems. Translate each pattern into a concrete conditional hypothesis about how an edit's effect varies with the parent configuration. Favor predictions that a practitioner thinking only mechanistically would get wrong, especially background-dependent sign changes and weaker gains in already-strong parents. Use conditions that many parents satisfy. In the flaw step, discard analogies that do not transfer and keep only those with a plausible general reason to hold."
+  },
+  "runs": [
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 1,
+    "prec": 0.8,
+    "prior": 64.35,
+    "tok": 26207,
+    "claims": [
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_1x1",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 3,
+    "prec": 0.7,
+    "prior": 48.1,
+    "tok": 25978,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "none",
+      4,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 6,
+    "sv": 0,
+    "prec": 0.6,
+    "prior": 73.0,
+    "tok": 25527,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_1x1",
+      -1
+     ],
+     [
+      0,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "avg_pool_3x3",
+      3,
+      "skip_connect",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 5,
+    "sv": 0,
+    "prec": 0.5,
+    "prior": 54.4,
+    "tok": 26251,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "none",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 8,
+    "sv": 0,
+    "prec": 0.8,
+    "prior": 63.35,
+    "tok": 26648,
+    "claims": [
+     [
+      3,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      0,
+      "none",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      5,
+      "none",
+      1
+     ],
+     [
+      5,
+      "skip_connect",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      4,
+      "skip_connect",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      0,
+      "none",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "none",
+      4,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 0,
+    "prec": 0.7,
+    "prior": 64.3,
+    "tok": 25630,
+    "claims": [
+     [
+      0,
+      "nor_conv_3x3",
+      0,
+      "nor_conv_1x1",
+      -1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      5,
+      "avg_pool_3x3",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      4,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "skip_connect",
+      4,
+      "none",
+      1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 4,
+    "sv": 0,
+    "prec": 0.4,
+    "prior": 44.55,
+    "tok": 25820,
+    "claims": [
+     [
+      4,
+      "nor_conv_3x3",
+      5,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      1,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "none",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      0,
+      "avg_pool_3x3",
+      1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "nor_conv_1x1",
+      1,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      0,
+      "nor_conv_3x3",
+      4,
+      "none",
+      -1
+     ]
+    ]
+   },
+   {
+    "on": 10,
+    "valid": 7,
+    "sv": 1,
+    "prec": 0.7,
+    "prior": 60.55,
+    "tok": 25158,
+    "claims": [
+     [
+      5,
+      "nor_conv_3x3",
+      4,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "nor_conv_3x3",
+      2,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "nor_conv_3x3",
+      5,
+      "none",
+      -1
+     ],
+     [
+      3,
+      "nor_conv_3x3",
+      3,
+      "skip_connect",
+      -1
+     ],
+     [
+      3,
+      "skip_connect",
+      3,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      0,
+      "none",
+      1,
+      "none",
+      -1
+     ],
+     [
+      4,
+      "avg_pool_3x3",
+      5,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      2,
+      "avg_pool_3x3",
+      2,
+      "nor_conv_3x3",
+      -1
+     ],
+     [
+      5,
+      "none",
+      4,
+      "nor_conv_3x3",
+      1
+     ],
+     [
+      5,
+      "none",
+      3,
+      "none",
+      -1
+     ]
+    ]
+   }
+  ]
+ }
+}
