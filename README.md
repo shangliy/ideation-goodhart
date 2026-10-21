@@ -26,11 +26,13 @@ We then optimize the ideation **harness** with the same Harness²-style optimize
 | **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (7.5 → 8.2, p = .018) while precision collapses from .78 to .29 and SV falls from 1.62 to 0.62 per run. On a private transfer space, the judge score rises from 6.6 to 8.8 while precision falls from .40 to .03. With Opus as generator, precision again collapses (.79 → .25), but SV does not fall. The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. | P1 supported |
 | **Validity fitness plays safe** | The validity-optimized harness restricts itself to mechanical claim types. The mean prior rises by 6 points, the set of distinct claims narrows, and neither precision nor SV improves. | P2 supported |
 | **SV fitness does not help** | No candidate beat direct generation. After a bug fix and a rerun, the one accepted candidate regressed on fresh runs from 1.67 to 1.25 (winner's curse). | P3 refuted |
+| **M. Measurement is the only lever with a signal** | Before proposing, the harness may run 20–400 real experiments (one edit on one parent cell, test split; truth uses the val split). With Opus, SV rises from 1.00 to 1.62–2.12 per run while precision holds (.70–.77); the best arm is 100 actively designed probes (raw p = .012, Holm .061). With Sonnet, precision collapses to .42–.61 and SV does not rise. More measurements do not help monotonically. | M1, M2 inconclusive |
 | **D. The frontier does not move** | 18 harnesses across two generators were tested on fresh runs; none beats plain direct generation on SV after Holm correction (largest gain +0.25 per run). On Sonnet, lowering the prior costs precision (ρ = .87 across 13 harnesses); on Opus, the frontier shape is inconclusive (ρ = .40, 5 harnesses). | D1 supported, D2 inconclusive |
 
 **Takeaway.**
 - An LLM judge is an exploitable target for ideation optimization.
-- Harness engineering trades precision against surprise, but in this setting it does not produce more claims that are both true and surprising.
+- Harness engineering that only changes the model's internal reasoning (retrieval, roles, challenge, selection, strategy text) trades precision against surprise, but in this setting it does not produce more claims that are both true and surprising.
+- Real measurements are the one lever with a positive signal, and only for a model that discounts single observations; this is not yet significant.
 - Direct generation is 3–7× cheaper and sits on or near the frontier.
 
 The full report is in Chinese: [REPORT.md](REPORT.md). It covers background, related work, every stage, verdicts, limitations, and cost.
@@ -46,6 +48,7 @@ experiments/harness/
   s1.py, s1_analyze.py          stage 1: L9 screen of structural knobs (retrieval, roles, challenge, selection)
   s2.py, s2_analyze.py          stage 2: one optimizer, three fitness functions; stage 3: fixed SV arm, Opus generator
   s3_analyze.py                 stage 3: frontier test (claim D)
+  s4.py                         stage 4: measurement knob (random / actively designed probes before proposing)
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
@@ -55,7 +58,7 @@ experiments/harness/
 ```bash
 pip install -r requirements.txt
 cd experiments/harness
-python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py   # no API calls, reads the caches
+python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze   # no API calls, reads the caches
 python3 ../../figures/make_frontier.py
 ```
 
