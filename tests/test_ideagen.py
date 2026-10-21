@@ -28,9 +28,9 @@ class T(unittest.TestCase):
 
     def test_demo_cli(self):
         with tempfile.TemporaryDirectory() as d:
-            self.assertEqual(main(['demo', '--llm-cmd', FAKE, '--out', d, '--prior', 'a,b', '--probes', '30']), 0)
+            self.assertEqual(main(['demo', '--llm-cmd', FAKE, '--out', d, '--prior', 'a,b', '--probes', '30', '--runs', '2']), 0)
             r = json.load(open(os.path.join(d, 'run.json')))
-            self.assertEqual([x['arm'] for x in r['results']], ['direct', 'measure'])
+            self.assertEqual([x['arm'] for x in r['results']], ['direct', 'measure'] * 2)
             self.assertTrue(0 < len(r['results'][1]['probes']) <= 30)  # the fake sometimes repeats the current value, which is dropped
             self.assertTrue(all('verdict' in h and 'prior' in h for x in r['results'] for h in x['hypotheses']))
 

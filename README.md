@@ -33,16 +33,18 @@ Inside Claude Code, the plugin installs in one step with `/plugin install resear
 
 Other flags:
 - `--describe "..."`: what the experiments are.
-- `--mode direct|measure|both`.
+- `--mode direct|measure|both`, `--runs N` (repeat and summarize with 90% intervals).
 - `--prior haiku,opus`: a blind rating panel; a supported hypothesis rated below 50 is a surprise.
 - `--llm-cmd`: any CLI that reads a prompt on stdin, for example `"codex exec -"`, for non-Claude models.
 
-See [examples/](examples/) for a space file and a toy training script. [examples/demo_output.md](examples/demo_output.md) is one real `ideagen demo` run with Sonnet:
-- direct generation: 2 of 10 hypotheses supported on held-out runs;
-- measure-first: 7 of 10;
-- random guessing: 0.08.
+See [examples/](examples/) for a space file and a toy training script. On the demo grid, 10 runs with Sonnet (`ideagen demo --runs 10`, [examples/demo_10runs.md](examples/demo_10runs.md)) give:
 
-This is one run on a synthetic grid, an illustration rather than a benchmark.
+| arm | supported hypotheses per run [90% CI] | precision [90% CI] |
+|---|---|---|
+| direct generation | 2.9 [2.6, 3.2] | .30 [.28, .33] |
+| measure-first (100 experiments) | 6.4 [5.7, 7.1] | .65 [.58, .72] |
+
+Random guessing would be right .08 of the time. The grid is synthetic, so treat this as a working demonstration of the tool, not evidence for the paper's claims; those come from the study below.
 
 **`research-idea` skill (Claude Code): ideas from papers.** Say "find research ideas in these papers" or "/research-idea". The workflow runs in this order:
 1. gap cards with evidence pointers;

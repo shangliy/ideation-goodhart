@@ -4,7 +4,7 @@
   ideagen table runs.csv --metric val_acc        your finished runs: probes answered from one half, claims checked on the other
   ideagen run --space space.json --run-cmd CMD   your training command: probes are real runs; --verify-n re-tests each claim
 """
-import argparse, json, os, sys
+import argparse, json, os, random, sys
 from . import demo as demo_mod
 from .generate import direct, measure, prior
 from .llm import LLM, DryRun
@@ -21,6 +21,7 @@ def common(ap):
     ap.add_argument('--llm-cmd', help='LLM command template, prompt on stdin, {model} substituted (default: claude -p ...; env IDEAGEN_LLM_CMD)')
     ap.add_argument('--describe', default='', help='what the experiments are (the model sees this; more context gives better hypotheses)')
     ap.add_argument('--out', default='ideagen_out', help='output directory')
+    ap.add_argument('--runs', type=int, default=1, help='independent runs per arm, summarized with a bootstrap interval (default 1)')
     ap.add_argument('--seed', type=int, default=0)
     ap.add_argument('--dry-run', action='store_true', help='print the first prompt and stop, no LLM calls')
 
@@ -71,8 +72,9 @@ def main(argv=None):
     arms = ['direct', 'measure'] if a.mode == 'both' else [a.mode]
     results = []
     try:
-        for arm in arms:
-            res = direct(sp, llm, a.n) if arm == 'direct' else measure(sp, llm, run_many, a.probes, a.n, a.seed)
+        for rep, arm in ((r, arm) for r in range(a.runs) for arm in arms):
+            res = direct(sp, llm, a.n, rep) if arm == 'direct' else measure(sp, llm, run_many, a.probes, a.n, a.seed + rep, rep)
+            res['run'] = rep
             prior(sp, panel, res['hypotheses'])
             if table:
                 for h in res['hypotheses']:
@@ -104,14 +106,32 @@ def summary(hs, panel):
     return s
 
 
+def aggregate(results):
+    """Per arm over runs: mean supported count and precision with 90% bootstrap intervals."""
+    rng = random.Random(0)
+    rows = ['| arm | runs | supported per run [90% CI] | precision [90% CI] |', '|---|---|---|---|']
+    for arm in dict.fromkeys(r['arm'] for r in results):
+        per = [(sum(h.get('verdict') == 'supported' for h in r['hypotheses']),
+                sum(h.get('verdict', 'untestable') != 'untestable' for h in r['hypotheses'])) for r in results if r['arm'] == arm]
+        stat = lambda v: (sum(s for s, _ in v) / len(v), sum(s for s, _ in v) / max(1, sum(t for _, t in v)))
+        boot = sorted(stat([rng.choice(per) for _ in per]) for _ in range(2000))
+        bs = sorted(x[0] for x in boot); bp = sorted(x[1] for x in boot)
+        m = stat(per)
+        rows.append(f'| {arm} | {len(per)} | {m[0]:.2f} [{bs[100]:.2f}, {bs[1899]:.2f}] | {m[1]:.2f} [{bp[100]:.2f}, {bp[1899]:.2f}] |')
+    return rows
+
+
 def render(sp, results, base, panel):
     out = ['# ideagen hypotheses', '']
     if base:
         out += [f'Held-out check: a hypothesis is supported when every group shows the stated sign with |interaction| >= 2 standard errors. '
                 f'Guessing at random would be right {base[0]:.2f} of the time ({base[1]} of {base[2]} testable directional claims).', '']
+    if len({r['run'] for r in results}) > 1 and base:
+        out += ['## Summary over runs', '', *aggregate(results), '']
     for res in results:
         hs = res['hypotheses']
-        out += [f'## {res["arm"]}' + (f' ({len(res["probes"])} experiments first)' if res['probes'] else ''), '', summary(hs, panel), '',
+        out += [f'## {res["arm"]}' + (f', run {res["run"] + 1}' if res['run'] else '') + (f' ({len(res["probes"])} experiments first)' if res['probes'] else ''),
+                '', summary(hs, panel), '',
                 '| # | hypothesis | why (model) |' + (' prior |' if panel else '') + (' verdict |' if any('verdict' in h for h in hs) else ''),
                 '|---|---|---|' + ('---|' if panel else '') + ('---|' if any('verdict' in h for h in hs) else '')]
         for i, h in enumerate(hs):
