@@ -49,6 +49,7 @@ experiments/harness/
   s3_analyze.py                 stage 3: frontier test (claim D)
   s4.py                         stage 4: measurement knob (random / actively designed probes before proposing)
   s5.py                         stage 5: 24-run confirmation of A and M for both generators
+  s6.py                         stage 6: M under noisy and low-fidelity measurements (Opus)
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
@@ -58,7 +59,7 @@ experiments/harness/
 ```bash
 pip install -r requirements.txt
 cd experiments/harness
-python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze   # no API calls, reads the caches
+python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze && python3 s6.py analyze   # no API calls, reads the caches
 python3 ../../figures/make_frontier.py
 ```
 
@@ -68,7 +69,7 @@ Producing new runs needs the `claude` CLI. Every role is one `claude -p --tools 
 
 - **Single training space.** NB201 is familiar to the models: direct generation already reaches .78 precision. The private CTR transfer space used in the original study is not released, so only aggregate numbers are reported.
 - **Small optimization and evaluation budgets.** Each arm ran 3 rounds × 3 candidates × 6 runs. Most harnesses got 8 fresh runs, and only the three key arms got 24 in stage 5. Two batches of 8 runs of the same harness can differ by up to 1 SV per run.
-- **Measurements are table lookups.** They are seed-averaged values, so they are cleaner than real experiments; M is untested under noisy measurement.
+- **Measurement noise.** Main measurements are seed-averaged table lookups. In stage 6, Opus was given the same designed probes with synthetic seed-level noise (N1, assumed σ), doubled noise (N2), or 12-epoch proxy values (L, ~70% sign agreement). The SV gain survived in all three (+0.75 to +1.13 over direct generation); only precision degraded (.75 → .65). Because SV is insensitive to measurement quality, the gain may come partly from the act of designing experiments rather than from their values; the shuffled-results control has not been run.
 - **Claude-only model panel.** The judge and proposer are both Opus, and the prior panel contains only Claude models.
 - **A regex bug**, now fixed, rejected 3 candidates in stage 2. See REPORT.md §5.4.
 - **Claim D was formed after stage 2.** Its test (stage 3) was pre-registered.
