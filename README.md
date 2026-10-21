@@ -35,6 +35,7 @@ Other flags:
 - `--describe "..."`: what the experiments are.
 - `--mode direct|measure|both`, `--runs N` (repeat and summarize with 90% intervals).
 - `--prior haiku,opus`: a blind rating panel; a supported hypothesis rated below 50 is a surprise.
+- `--prior-check`: in measure mode, propose only claims that both the experiments and the model's own knowledge support. In the study (stage 11) this raised Sonnet's precision on NAS-Bench-201 from .44 to .60 with no loss of surprising-valid claims. It helps models that over-trust a few striking but unrepresentative experiments.
 - `--llm-cmd`: any CLI that reads a prompt on stdin, for example `"codex exec -"`, for non-Claude models.
 
 See [examples/](examples/) for a space file and a toy training script. On the demo grid, 10 runs with Sonnet (`ideagen demo --runs 10`, [examples/demo_10runs.md](examples/demo_10runs.md)) give:

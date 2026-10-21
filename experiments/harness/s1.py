@@ -20,7 +20,14 @@ SETUP="\n".join([
  "consistently across the three datasets and by a practically meaningful margin. It is about the interaction, not the edit's average effect."])
 def fmt(n): return ('End with JSON only: {"hypotheses": [{"edit_edge": <0-5>, "edit_op": "<op>", "cond_edge": <0-5>, "cond_op": "<op>", '
                     f'"direction": "higher" or "lower", "why": "<one sentence>"}}, ...]}} with exactly {n} distinct hypotheses.')
+GPT_MODEL=os.environ.get('GPT_MODEL','gpt-6-astra')  # 'gpt' runs through the Codex CLI (stage 10), read-only sandbox in an empty dir
 def call(model,prompt):
+    if model=='gpt':
+        with tempfile.TemporaryDirectory() as d:
+            o=os.path.join(d,'last.txt')
+            r=subprocess.run(['codex','exec','-m',GPT_MODEL,'--ephemeral','--skip-git-repo-check','-s','read-only','-C',d,'-o',o,'-'],input=prompt,capture_output=True,text=True,timeout=900)
+            t=re.findall(r'tokens used\s*\n?\s*([\d,]+)',r.stdout+r.stderr)
+            return (open(o).read() if os.path.exists(o) else 'ERROR '+(r.stderr or r.stdout)[-300:]),(int(t[-1].replace(',','')) if t else 0)
     with tempfile.TemporaryDirectory() as d:
         r=subprocess.run(['claude','-p','--model',model,'--tools','','--strict-mcp-config','--output-format','json'],input=prompt,capture_output=True,text=True,timeout=900,cwd=d)
     try:

@@ -22,7 +22,7 @@ the metric more (or less) when k is at level c than otherwise".
 
 Useful flags: `--describe "<what the experiments are>"` (the model sees it, so
 give real context), `--mode measure|direct|both`, `--probes 100`, `--n 10`,
-`--model sonnet`, `--prior haiku,opus` (blind panel: a supported hypothesis the
+`--model sonnet`, `--prior-check` (only propose claims that the experiments and the model's own knowledge both support; use it when the experiments are exact but come from few configurations), `--prior haiku,opus` (blind panel: a supported hypothesis the
 panel rated below 50 is a surprise worth reading), `--llm-cmd "<any CLI that
 reads a prompt on stdin>"` for non-Claude models, `--dry-run` to print the
 first prompt without calling anything.

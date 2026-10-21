@@ -107,7 +107,11 @@ def results_text(sp, probes):
     return '\n'.join(lines)
 
 
-def measure(sp, llm, run_many, k=100, n=10, seed=0, attempt=0):
+PRIOR_CHECK = ('Propose only hypotheses that the experiments support AND that you also find plausible from your own knowledge of this domain; '
+               'if the experiments and your knowledge disagree about a claim, do not propose it.\n')
+
+
+def measure(sp, llm, run_many, k=100, n=10, seed=0, attempt=0, prior_check=False):
     """`run_many(probes, rng)` executes the (config, param, value) experiments and returns each one's per-group score change (None if unavailable)."""
     probes = parse_probes(sp, last_json(llm.ask(design_prompt(sp, k, n, attempt), 'design'), 'experiments'))[:k]
     if not probes:
@@ -115,7 +119,8 @@ def measure(sp, llm, run_many, k=100, n=10, seed=0, attempt=0):
     done = [(cfg, j, b, d) for (cfg, j, b), d in zip(probes, run_many(probes, random.Random(seed)))]
     prompt = (setup(sp) + tag(attempt) + f'\n\nBefore proposing, you ran {len(done)} experiments. Each applied one edit to one configuration, ran both once '
               f'(single noisy runs) and measured the change in {sp.metric}; these are real measurements and can serve as evidence:\n'
-              + results_text(sp, done) + f'\n\nPropose {n} conditional hypotheses about this experiment grid that you believe are true.\n' + fmt(sp, n))
+              + results_text(sp, done) + f'\n\nPropose {n} conditional hypotheses about this experiment grid that you believe are true.\n'
+              + (PRIOR_CHECK if prior_check else '') + fmt(sp, n))
     hyps = parse_hypotheses(sp, last_json(llm.ask(prompt, 'propose'), 'hypotheses'))
     return dict(arm='measure', hypotheses=hyps, probes=[dict(config=sp.config_text(c), edit=f'{sp.params[j].name}={sp.params[j].labels[b]}', change=d)
                                                          for c, j, b, d in done])

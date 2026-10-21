@@ -21,6 +21,9 @@ def common(ap):
     ap.add_argument('--llm-cmd', help='LLM command template, prompt on stdin, {model} substituted (default: claude -p ...; env IDEAGEN_LLM_CMD)')
     ap.add_argument('--describe', default='', help='what the experiments are (the model sees this; more context gives better hypotheses)')
     ap.add_argument('--out', default='ideagen_out', help='output directory')
+    ap.add_argument('--prior-check', action='store_true',
+                    help='measure mode: propose only claims that both the experiments and the model\'s own knowledge support '
+                         '(raised precision .44 -> .60 for Sonnet on NAS-Bench-201 in the study, with no loss of surprising-valid claims)')
     ap.add_argument('--runs', type=int, default=1, help='independent runs per arm, summarized with a bootstrap interval (default 1)')
     ap.add_argument('--seed', type=int, default=0)
     ap.add_argument('--dry-run', action='store_true', help='print the first prompt and stop, no LLM calls')
@@ -73,7 +76,7 @@ def main(argv=None):
     results = []
     try:
         for rep, arm in ((r, arm) for r in range(a.runs) for arm in arms):
-            res = direct(sp, llm, a.n, rep) if arm == 'direct' else measure(sp, llm, run_many, a.probes, a.n, a.seed + rep, rep)
+            res = direct(sp, llm, a.n, rep) if arm == 'direct' else measure(sp, llm, run_many, a.probes, a.n, a.seed + rep, rep, a.prior_check)
             res['run'] = rep
             prior(sp, panel, res['hypotheses'])
             if table:
