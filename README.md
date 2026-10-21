@@ -5,6 +5,54 @@ Pre-registered pilot experiments on two hypothesis spaces with measured ground t
 
 ![precision vs surprising-valid](figures/frontier.png)
 
+This repository has two parts: **tools** you can use today, built on what the study found, and the **study** itself (pre-registrations, every LLM call, analysis scripts, report).
+
+## Quick start: the tools
+
+```bash
+git clone https://github.com/shangliy/ideation-goodhart && cd ideation-goodhart && ./install.sh
+ideagen demo --dry-run    # prints the prompt, no LLM calls
+ideagen demo              # 3 LLM calls: direct generation vs measure-first, scored on held-out runs
+```
+
+Or install the pieces separately:
+
+```bash
+pip install git+https://github.com/shangliy/ideation-goodhart                                           # ideagen CLI
+claude plugin marketplace add shangliy/ideation-goodhart && claude plugin install research-ideation@ideation-goodhart   # Claude Code skills
+```
+
+Inside Claude Code, the plugin installs in one step with `/plugin install research-ideation --marketplace shangliy/ideation-goodhart`.
+
+**`ideagen`: hypotheses from measurements.** You give it an experiment grid. Before proposing, the model designs about 100 single-edit experiments and reads their noisy results; this is the arm that helped in the study. It then proposes conditional hypotheses ("setting *j* = *b* raises the metric more when *k* is at level *c*") and checks each one.
+
+| You have | Command | How hypotheses are checked |
+|---|---|---|
+| a CSV of finished runs, one row per run | `ideagen table runs.csv --metric val_acc --group dataset` | the CSV is split in half; probes read one half, verdicts come from the other, next to the random base rate |
+| a script: config JSON on stdin → metric on stdout | `ideagen run --space space.json --run-cmd "python train.py" --verify-n 8 --jobs 4` | probes are real runs; `--verify-n` re-tests each hypothesis with fresh paired runs (supported / contradicted / inconclusive at 2 SE) |
+
+Other flags:
+- `--describe "..."`: what the experiments are.
+- `--mode direct|measure|both`.
+- `--prior haiku,opus`: a blind rating panel; a supported hypothesis rated below 50 is a surprise.
+- `--llm-cmd`: any CLI that reads a prompt on stdin, for example `"codex exec -"`, for non-Claude models.
+
+See [examples/](examples/) for a space file and a toy training script. [examples/demo_output.md](examples/demo_output.md) is one real `ideagen demo` run with Sonnet:
+- direct generation: 2 of 10 hypotheses supported on held-out runs;
+- measure-first: 7 of 10;
+- random guessing: 0.08.
+
+This is one run on a synthetic grid, an illustration rather than a benchmark.
+
+**`research-idea` skill (Claude Code): ideas from papers.** Say "find research ideas in these papers" or "/research-idea". The workflow runs in this order:
+1. gap cards with evidence pointers;
+2. cross-domain mechanism transfer;
+3. a prior-art check before any ranking, including a system-level query for recent work;
+4. reviewer verdicts;
+5. proposals with a pre-registered decisive experiment and kill criteria.
+
+Everything is kept in an idea ledger, so refuted ideas stay refuted. Following the findings below, it never ranks by an LLM's novelty score, and it hands off to `ideagen` when you have data.
+
 ## Summary
 
 We ask an LLM to propose 10 testable conditional hypotheses about a benchmark whose data it cannot see:
@@ -39,6 +87,10 @@ The full report is in Chinese: [REPORT.md](REPORT.md). It covers background, rel
 ## Repository layout
 
 ```
+ideagen/                        the ideagen CLI (space.py claims and held-out truth, generate.py prompts, runner.py your own command, demo.py synthetic grid)
+plugin/                         Claude Code plugin: skills/research-idea, skills/ideagen
+.claude-plugin/marketplace.json marketplace entry for the plugin
+examples/, tests/               space file and toy training script; offline tests with a fake LLM (python3 -m unittest discover tests)
 REPORT.md                       full experiment report (Chinese)
 figures/                        frontier.png and the script that draws it
 experiments/harness/

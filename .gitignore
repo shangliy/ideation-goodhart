@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 experiments/harness/search_cache/
 *.log
+*.egg-info/
+build/
+ideagen_out/
+.ideagen_cache/

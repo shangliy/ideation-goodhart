@@ -1,0 +1,12 @@
+{
+  "name": "ideation-goodhart",
+  "owner": {"name": "shangliy"},
+  "plugins": [
+    {
+      "name": "research-ideation",
+      "source": "./plugin",
+      "description": "research-idea and ideagen skills: grounded research ideation and measurement-first hypothesis generation",
+      "category": "productivity"
+    }
+  ]
+}

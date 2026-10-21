@@ -1,0 +1,11 @@
+{
+  "metric": "val_acc",
+  "minimize": false,
+  "describe": "Toy example: a small classifier trained with the settings below; replace with a description of your own experiment.",
+  "params": {
+    "lr": [0.0001, 0.0003, 0.001, 0.003, 0.01],
+    "dropout": [0.0, 0.2, 0.5],
+    "layers": [2, 4, 8],
+    "optimizer": ["adam", "sgd"]
+  }
+}

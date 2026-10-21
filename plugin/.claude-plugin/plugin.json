@@ -1,0 +1,8 @@
+{
+  "name": "research-ideation",
+  "description": "Research ideation that checks itself: research-idea (gap cards, cross-domain mechanisms, prior-art check before ranking, decisive experiments, kill lists) and ideagen (hypotheses generated from measurements and checked on held-out runs).",
+  "version": "0.1.0",
+  "author": {"name": "shangliy"},
+  "homepage": "https://github.com/shangliy/ideation-goodhart",
+  "license": "MIT"
+}
