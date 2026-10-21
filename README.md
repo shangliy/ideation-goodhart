@@ -1,7 +1,7 @@
 # ideation-goodhart
 
 **What should you optimize when you optimize an LLM research-ideation harness?**
-Pre-registered pilot experiments on a hypothesis space with measured ground truth (NAS-Bench-201).
+Pre-registered pilot experiments on two hypothesis spaces with measured ground truth (NAS-Bench-201; HPOBench tabular MLP hyperparameters).
 
 ![precision vs surprising-valid](figures/frontier.png)
 
@@ -23,16 +23,16 @@ We then optimize the ideation **harness** with the same Harness²-style optimize
 
 | | Result | Verdict |
 |---|---|---|
-| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (Sonnet 7.5 → 8.2, p = .018; Opus 8.2 → 8.9, p < .001) while precision collapses (stage 5, 24 fresh runs per arm: Sonnet .79 → .43, Opus .87 → .28; on a private transfer space .40 → .03). The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. The stage-2 drop in surprising-valid claims (1.62 → 0.62) did **not** replicate at larger n: the judge arm moves along the frontier to low precision and low prior. | P1, A-prec, A-judge supported; A-SV not replicated |
+| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (Sonnet 7.5 → 8.2, p = .018; Opus 8.2 → 8.9, p < .001) while precision collapses (stage 5, 24 fresh runs per arm: Sonnet .79 → .43, Opus .87 → .28). Transferred unchanged to the HPOBench space (stage 9), the same harness again raises the judge score (+1.0, +1.8) and collapses precision (.82 → .43, .90 → .42); on a private transfer space .40 → .03. The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. The drop in surprising-valid claims replicates only partly: not on NB201 at larger n, but yes for Opus on HPOBench (4.17 → 2.46). | A-prec, A-judge supported in 2 spaces × 2 models; A-SV 1 of 3 tests |
 | **Validity fitness plays safe** | The validity-optimized harness restricts itself to mechanical claim types. The mean prior rises by 6 points, the set of distinct claims narrows, and neither precision nor SV improves. | P2 supported |
 | **SV fitness does not help** | No candidate beat direct generation. After a bug fix and a rerun, the one accepted candidate regressed on fresh runs from 1.67 to 1.25 (winner's curse). | P3 refuted |
-| **M. Measurement pushes the frontier, for one model** | Before proposing, the model designs 100 experiments (one edit on one parent cell; measured on the test split, truth uses val) and reads the results. With Opus, SV doubles from 1.08 to 2.12 per run (24 fresh runs per arm, 90% CI [+0.54, +1.58], Holm p = .003) at .75 precision; the arm scored 2.12 in all three independent batches. With Sonnet, SV does not move (+0.04, CI upper bound +0.38) and precision collapses (.79 → .45), matching an earlier pilot in which Sonnet followed noise-level measurements 94% of the time under a reconsider prompt vs 41% for Opus. | Stage 5 M: Opus supported, Sonnet refuted |
+| **M. Measurement pushes the frontier** | Before proposing, the model designs 100 experiments (one edit on one parent cell; measured on the test split, truth uses val) and reads the results. With Opus, SV doubles from 1.08 to 2.12 per run (24 fresh runs per arm, 90% CI [+0.54, +1.58], Holm p = .003) at .75 precision; the arm scored 2.12 in all three independent batches. With Sonnet, SV does not move (+0.04, CI upper bound +0.38) and precision collapses (.79 → .45), On HPOBench, where each measurement is a real single-seed training run (70% sign agreement with the 5-seed truth), both models gain: Sonnet 1.83 → 2.71 (Holm .002), Opus 4.17 → 4.67 (Holm .019), with no precision loss. | Supported in 3 of 4 model × space cells; fails for Sonnet on NB201 |
 | **D. The frontier does not move** | 19 harnesses across two generators were tested on fresh runs, including a design-only harness (stage 8); none beats plain direct generation on SV after Holm correction (largest gain +0.25 per run). On Sonnet, lowering the prior costs precision (ρ = .87 across 13 harnesses); on Opus, the frontier shape is inconclusive (ρ = .40, 5 harnesses). | D1 supported, D2 inconclusive |
 
 **Takeaway.**
 - An LLM judge is an exploitable target for ideation optimization: it rewards moving away from the prior and pays for it in precision.
 - Harness engineering that only changes the model's internal reasoning (retrieval, roles, challenge, selection, strategy text) trades precision against surprise along a frontier; it does not push the frontier.
-- Letting Opus design and read 100 experiments before proposing roughly doubles the true-and-surprising findings; designing experiments without results does not. For Sonnet the measured variant wrecks precision.
+- Letting the model design and read 100 cheap, even noisy, experiments before proposing increases true-and-surprising findings in 3 of 4 model × space cells; designing experiments without results does not. The one failure (Sonnet on NB201, a space it knows well) is a precision collapse.
 
 The full report is in Chinese: [REPORT.md](REPORT.md). It covers background, related work, every stage, verdicts, limitations, and cost.
 
@@ -52,6 +52,8 @@ experiments/harness/
   s6.py                         stage 6: M under noisy and low-fidelity measurements (Opus)
   s7.py                         stage 7: shuffled-results and design-only controls (Opus)
   s8.py                         stage 8: design-only harness, no results (Opus, Sonnet)
+  fc_space.py, fc_space.json    second space: HPOBench tabular MLP claim space (derived statistics)
+  s9.py                         stage 9: BASE / judge harness / measurement on the second space
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
@@ -61,7 +63,7 @@ experiments/harness/
 ```bash
 pip install -r requirements.txt
 cd experiments/harness
-python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze && python3 s6.py analyze && python3 s7.py analyze && python3 s8.py analyze   # no API calls, reads the caches
+python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze && python3 s6.py analyze && python3 s7.py analyze && python3 s8.py analyze && python3 s9.py analyze   # no API calls, reads the caches
 python3 ../../figures/make_frontier.py
 ```
 
@@ -69,7 +71,7 @@ Producing new runs needs the `claude` CLI. Every role is one `claude -p --tools 
 
 ## Scope and caveats
 
-- **Single training space.** NB201 is familiar to the models: direct generation already reaches .78 precision. The private CTR transfer space used in the original study is not released, so only aggregate numbers are reported.
+- **Harness training on one space.** Harnesses were optimized only on NB201, which the models know well (direct generation reaches .78 precision). The second space (HPOBench, stage 9) tests direct generation, the transferred judge harness and measurement only. The private CTR transfer space used in the original study is not released, so only aggregate numbers are reported.
 - **Small optimization and evaluation budgets.** Each arm ran 3 rounds × 3 candidates × 6 runs. Most harnesses got 8 fresh runs, and only the three key arms got 24 in stage 5. Two batches of 8 runs of the same harness can differ by up to 1 SV per run.
 - **What drives the measurement gain.** With Opus, the SV gain survived synthetic seed-level noise (N1, assumed σ), doubled noise (N2) and 12-epoch proxy values (L); only precision degraded. Shuffling the results across probes dropped SV to 1.42 and precision to .58 (clean minus shuffled +0.71, Holm .072, inconclusive). Showing the probes designed for measurement without results gave 1.83, but a true design-only harness (the model knows no results will come) gave 1.25 for Opus and 1.21 for Sonnet, no better than direct generation. Measurement helps Opus; its quality mostly affects precision; the independent contribution of the values has not yet passed the pre-registered bar.
 - **Claude-only model panel.** The judge and proposer are both Opus, and the prior panel contains only Claude models.
@@ -82,4 +84,4 @@ Si et al. 2601.14525 (execution-grounded ideation rewards; safe-idea collapse), 
 
 ## License
 
-MIT for the code. `nb_space.json` contains summary statistics derived from NAS-Bench-201; see that benchmark's own terms.
+MIT for the code. `nb_space.json` and `fc_space.json` contain summary statistics derived from NAS-Bench-201 and HPOBench (figshare file 30379005); see those benchmarks' own terms. Running new stage-9 measurements needs the HPOBench `nn` table (`FC_TAB`, extracted with per-seed val/test accuracy).
