@@ -1,5 +1,5 @@
 # Stage 4: does a measurement knob push the precision-surprise frontier? (see PREREG_s4.md)
-# Usage: python3 s4.py show | run | analyze        (S2_GEN=opus switches the generator; calls cached in out2/)
+# Usage: python3 s4.py show | run | analyze | confirm | confirm-analyze        (S2_GEN=opus switches the generator; calls cached in out2/)
 import sys,os,json,random,concurrent.futures as cf
 import numpy as np
 import s2,s1
@@ -92,6 +92,35 @@ def analyze():
     verdict['M2']='SUPPORT' if all(r>0 and p<.05 for r,p in m2) else ('REFUTE' if all(r<=0 for r,_ in m2) else 'INCONCLUSIVE')
     print('\nper-generator M1',m1,'\npre-registered verdicts:',verdict)
     json.dump(dict(arms=out,verdicts=verdict),open(os.path.join(s2.s1.HERE,'s4_results.json'),'w'),indent=1)
+CREPS=range(108,116)
+def confirm():  # Opus confirmation (PREREG_s4.md addendum): 8 new reps for k=0, R-100, A-100
+    J=[('k0',0,r) for r in CREPS]+[(mo,100,r) for r in CREPS for mo in ('R','A')]
+    f=lambda j: s2.run(dict(s2.BASE),'nb',j[2]) if j[0]=='k0' else run(*j)
+    with cf.ThreadPoolExecutor(6) as ex:
+        for j,rec in zip(J,ex.map(f,J)): print(GEN,j,'ok' if rec else 'FAIL',flush=True)
+def confirm_analyze():
+    rng=np.random.default_rng(0); s2.GEN='opus'
+    def perm(a,b):
+        a,b=np.asarray(a,float),np.asarray(b,float); x=np.r_[a,b]; d=a.mean()-b.mean()
+        return float(np.mean([(lambda p: p[:len(a)].mean()-p[len(a):].mean())(rng.permutation(x))>=d for _ in range(5000)]))
+    def runs(arm,reps):
+        L=[]
+        for r in reps:
+            f=os.path.join(OUT,f'run_nb_{s2.hid(s2.BASE)}_r{r}_opus.json' if arm=='k0' else f'run_m{arm}100_nb_r{r}_opus.json')
+            if os.path.exists(f): L.append(score(json.load(open(f))))
+        return L
+    out={}
+    for label,reps in (('pooled 16',list(REPS)+list(CREPS)),('new 8 only',CREPS)):
+        R={a:runs(a,reps) for a in ('k0','R','A')}; m=lambda a,k: float(np.mean([x[k] for x in R[a]]))
+        ps=[perm([x['sv'] for x in R[a]],[x['sv'] for x in R['k0']]) for a in ('R','A')]; adj=[min(1,2*min(ps)),min(1,max(max(ps),2*min(ps)))]
+        adj=[adj[0],adj[1]] if ps[0]<=ps[1] else [adj[1],adj[0]]
+        print(f'== {label} ==')
+        for a in ('k0','R','A'): print(f"  {a:3s} n={len(R[a])} SV {m(a,'sv'):.2f} prec {m(a,'prec'):.2f} prior {m(a,'prior'):.1f}")
+        for a,p,q in zip(('R','A'),ps,adj): print(f"  SV {a}-100 > k0: diff {m(a,'sv')-m('k0','sv'):+.2f}  p {p:.3f}  holm {q:.3f}")
+        hit=[a for a,q in zip(('R','A'),adj) if q<.05 and m(a,'prec')>=0.8*m('k0','prec')]
+        v='SUPPORT' if hit else ('REFUTE' if all(m(a,'sv')<=m('k0','sv')+0.3 for a in ('R','A')) else 'INCONCLUSIVE')
+        print('  verdict:',v); out[label]=dict(p=ps,holm=adj,verdict=v,**{a:dict(n=len(R[a]),sv=m(a,'sv'),prec=m(a,'prec'),prior=m(a,'prior')) for a in R})
+    json.dump(out,open(os.path.join(s2.s1.HERE,'s4_confirm.json'),'w'),indent=1)
 if __name__=='__main__':
     m=sys.argv[1] if len(sys.argv)>1 else 'show'
     if m=='show':
@@ -104,3 +133,5 @@ if __name__=='__main__':
         with cf.ThreadPoolExecutor(6) as ex:
             for (mo,k,r),rec in zip(J,ex.map(lambda j: run(*j),J)): print(GEN,mo,k,r,'ok' if rec else 'FAIL',flush=True)
     if m=='analyze': analyze()
+    if m=='confirm': confirm()
+    if m=='confirm-analyze': confirm_analyze()
