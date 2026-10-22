@@ -122,6 +122,7 @@ experiments/harness/
   s12.py, s12_post.py           stage 12: three-way prior, rescoring of every cached run; threshold sweep and R
   s12_verify_*.py, s12_rmulti.py  the direction-bias diagnosis and R with multi-covariate calibration (no API calls)
   s12_d.py, s12_paper.py        claim D rescored (19 harnesses) and the numbers used in the paper
+  post_conflict3.py, s11_three_way.py  conflict analysis and stage-11 siding with the three-way prior (need the raw tables)
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
