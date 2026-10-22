@@ -16,12 +16,13 @@ def fit(sp,gen,mode):
         z=1/(1+np.exp(-X@w)); g=X.T@(z-Y)+1e-3*w; Hm=(X*(z*(1-z))[:,None]).T@X+1e-3*np.eye(len(w)); s=np.linalg.solve(Hm,g); w-=s
         if np.abs(s).max()<1e-9: break
     return lambda cl,p: 1/(1+np.exp(-feats(cl,p)@w))
-for mode in ('3','old'):
-    print('== prior mode',mode)
-    for sp in ('nb','fc'):
-        for gen in ('sonnet','opus'):
-            pi=fit(sp,gen,mode); R={}
-            for arm in ('BASE','A','J'):
-                R[arm]=[sum(s12.truth(sp,c)-pi(c,s12.prior(sp,c,gen,mode)) for c in s12.claims(r,mode!='old')) for r in s12.arm_runs(sp,gen,arm)]
-            print(f"  {sp} {gen:6s} R BASE {np.mean(R['BASE']):+.2f}  A {np.mean(R['A']):+.2f} (d {np.mean(R['A'])-np.mean(R['BASE']):+.2f}, p {perm(R['A'],R['BASE']):.3f})  "
-                  f"J {np.mean(R['J']):+.2f} (d {np.mean(R['J'])-np.mean(R['BASE']):+.2f}, p_lower {perm(R['BASE'],R['J']):.3f})")
+if __name__=='__main__':
+    for mode in ('3','old'):
+        print('== prior mode',mode)
+        for sp in ('nb','fc'):
+            for gen in ('sonnet','opus'):
+                pi=fit(sp,gen,mode); R={}
+                for arm in ('BASE','A','J'):
+                    R[arm]=[sum(s12.truth(sp,c)-pi(c,s12.prior(sp,c,gen,mode)) for c in s12.claims(r,mode!='old')) for r in s12.arm_runs(sp,gen,arm)]
+                print(f"  {sp} {gen:6s} R BASE {np.mean(R['BASE']):+.2f}  A {np.mean(R['A']):+.2f} (d {np.mean(R['A'])-np.mean(R['BASE']):+.2f}, p {perm(R['A'],R['BASE']):.3f})  "
+                      f"J {np.mean(R['J']):+.2f} (d {np.mean(R['J'])-np.mean(R['BASE']):+.2f}, p_lower {perm(R['BASE'],R['J']):.3f})")
