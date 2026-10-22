@@ -3,6 +3,13 @@
 **What should you optimize when you optimize an LLM research-ideation harness?**
 Pre-registered pilot experiments on two hypothesis spaces with measured ground truth (NAS-Bench-201; HPOBench tabular MLP hyperparameters).
 
+> **Correction (2026-10-21, stage 12).** Earlier versions of this README said that measurement (claim M) raises surprising-valid (SV) findings in 3 of 4 model × space cells. That result does not survive a direction-invariant prior.
+> - **The flaw.** The original prior asked the panel only for P(HIGHER) and scored LOWER claims as 100 − P(HIGHER). This counts "no interaction" as evidence for LOWER, so no LOWER claim could ever be surprising. Yet 54–57% of true claims are LOWER, and two wordings of the same HPOBench proposition received opposite labels.
+> - **What changed.** The measurement arms shift claims toward HIGHER. Re-eliciting a three-way prior (P(higher), P(lower), P(no interaction); 102 calls) gives SV differences of −0.92, −0.75, −1.92 and +0.04 per run under the pre-registered criteria: 3 refuted, 1 inconclusive.
+> - **A threshold-free check agrees.** We also scored R, the number of claims that hold beyond what the calibrated panel expected. Measurement does not raise R significantly in any cell.
+> - **What stands.** Claim A (judge fitness Goodharts) and claim D (internal-reasoning harnesses do not beat direct generation) still hold; the judge harness lowers R in 3 of 4 cells. See [REPORT.md §6i](REPORT.md) and `experiments/harness/RESULT_s12.md`.
+> - **The figure.** The figure below still uses the original prior.
+
 ![precision vs surprising-valid](figures/frontier.png)
 
 This repository has two parts: **tools** you can use today, built on what the study found, and the **study** itself (pre-registrations, every LLM call, analysis scripts, report).
@@ -24,7 +31,7 @@ claude plugin marketplace add shangliy/ideation-goodhart && claude plugin instal
 
 Inside Claude Code, the plugin installs in one step with `/plugin install research-ideation --marketplace shangliy/ideation-goodhart`.
 
-**`ideagen`: hypotheses from measurements.** You give it an experiment grid. Before proposing, the model designs about 100 single-edit experiments and reads their noisy results; this is the arm that helped in the study. It then proposes conditional hypotheses ("setting *j* = *b* raises the metric more when *k* is at level *c*") and checks each one.
+**`ideagen`: hypotheses from measurements.** You give it an experiment grid. Before proposing, the model designs about 100 single-edit experiments and reads their noisy results. In the study this arm looked helpful under the original surprise metric, but not under a direction-invariant prior (stage 12, see the correction above); on the synthetic demo grid it does raise precision. It then proposes conditional hypotheses ("setting *j* = *b* raises the metric more when *k* is at level *c*") and checks each one.
 
 | You have | Command | How hypotheses are checked |
 |---|---|---|
@@ -35,7 +42,7 @@ Other flags:
 - `--describe "..."`: what the experiments are.
 - `--mode direct|measure|both`, `--runs N` (repeat and summarize with 90% intervals).
 - `--prior haiku,opus`: a blind rating panel; a supported hypothesis rated below 50 is a surprise.
-- `--prior-check`: in measure mode, propose only claims that both the experiments and the model's own knowledge support. In the study (stage 11) this raised Sonnet's precision on NAS-Bench-201 from .44 to .60 with no loss of surprising-valid claims. It helps models that over-trust a few striking but unrepresentative experiments.
+- `--prior-check`: in measure mode, propose only claims that both the experiments and the model's own knowledge support. In the study (stage 11) this raised Sonnet's precision on NAS-Bench-201 from .44 to .60 with no loss of surprising-valid claims (original metric). It helps models that over-trust a few striking but unrepresentative experiments.
 - `--llm-cmd`: any CLI that reads a prompt on stdin, for example `"codex exec -"`, for non-Claude models.
 
 See [examples/](examples/) for a space file and a toy training script. On the demo grid, 10 runs with Sonnet (`ideagen demo --runs 10`, [examples/demo_10runs.md](examples/demo_10runs.md)) give:
@@ -74,16 +81,18 @@ We then optimize the ideation **harness** with the same Harness²-style optimize
 
 | | Result | Verdict |
 |---|---|---|
-| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (Sonnet 7.5 → 8.2, p = .018; Opus 8.2 → 8.9, p < .001) while precision collapses (stage 5, 24 fresh runs per arm: Sonnet .79 → .43, Opus .87 → .28). Transferred unchanged to the HPOBench space (stage 9), the same harness again raises the judge score (+1.0, +1.8) and collapses precision (.82 → .43, .90 → .42); on a private transfer space .40 → .03. The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. The drop in surprising-valid claims replicates only partly: not on NB201 at larger n, but yes for Opus on HPOBench (4.17 → 2.46). | A-prec, A-judge supported in 2 spaces × 2 models; A-SV 1 of 3 tests |
+| **A. Judge fitness Goodharts** | The judge-optimized harness raises the judge score (Sonnet 7.5 → 8.2, p = .018; Opus 8.2 → 8.9, p < .001) while precision collapses (stage 5, 24 fresh runs per arm: Sonnet .79 → .43, Opus .87 → .28). Transferred unchanged to the HPOBench space (stage 9), the same harness again raises the judge score (+1.0, +1.8) and collapses precision (.82 → .43, .90 → .42); on a private transfer space .40 → .03. The optimizer learned to *ban* the claim types that are most often true, because the judge finds them obvious. The drop in surprising-valid claims replicates only partly: not on NB201 at larger n, but yes for Opus on HPOBench (4.17 → 2.46). Under the corrected prior (stage 12, post hoc), the judge harness proposes claims that hold *less* often than the calibrated panel expects: R falls in 3 of 4 cells (p < .001; not for Sonnet on NB201). | A-prec, A-judge supported in 2 spaces × 2 models; A-SV 1 of 3 tests |
 | **Validity fitness plays safe** | The validity-optimized harness restricts itself to mechanical claim types. The mean prior rises by 6 points, the set of distinct claims narrows, and neither precision nor SV improves. | P2 supported |
 | **SV fitness does not help** | No candidate beat direct generation. After a bug fix and a rerun, the one accepted candidate regressed on fresh runs from 1.67 to 1.25 (winner's curse). | P3 refuted |
-| **M. Measurement pushes the frontier** | Before proposing, the model designs 100 experiments (one edit on one parent cell; measured on the test split, truth uses val) and reads the results. With Opus, SV doubles from 1.08 to 2.12 per run (24 fresh runs per arm, 90% CI [+0.54, +1.58], Holm p = .003) at .75 precision; the arm scored 2.12 in all three independent batches. With Sonnet, SV does not move (+0.04, CI upper bound +0.38) and precision collapses (.79 → .45), On HPOBench, where each measurement is a real single-seed training run (70% sign agreement with the 5-seed truth), both models gain: Sonnet 1.83 → 2.71 (Holm .002), Opus 4.17 → 4.67 (Holm .019), with no precision loss. | Supported in 3 of 4 model × space cells; fails for Sonnet on NB201 |
+| **M. Measurement pushes the frontier: not supported after correction** | *Original metric:* before proposing, the model designs 100 experiments (one edit on one parent cell; measured on the test split, truth uses val) and reads the results. With Opus, SV doubles from 1.08 to 2.12 per run (24 fresh runs per arm, 90% CI [+0.54, +1.58], Holm p = .003) at .75 precision; the arm scored 2.12 in all three independent batches. With Sonnet, SV does not move (+0.04, CI upper bound +0.38) and precision collapses (.79 → .45), On HPOBench, where each measurement is a real single-seed training run (70% sign agreement with the 5-seed truth), both models gain: Sonnet 1.83 → 2.71 (Holm .002), Opus 4.17 → 4.67 (Holm .019), with no precision loss. *Direction-invariant three-way prior (stage 12):* the gains came from a shift toward HIGHER claims, the only direction the original metric could count as surprising. SV differences become −0.92 (NB Sonnet), −0.75 (NB Opus), −1.92 (HPO Sonnet), +0.04 (HPO Opus). Measurement raises R (claims that hold beyond the calibrated panel's expectation) in no cell. Post hoc lead: Opus finds about one more true claim per run among claims the panel rated below 20–33%. | Original: 3 of 4 supported. Corrected (pre-registered): 3 refuted, 1 inconclusive |
+| **S. Complement-coded surprise metrics are biased** | Asking only for P(HIGHER) and taking 100 − P for LOWER folds "no effect" into LOWER. 0% of SV-eligible claims were LOWER, while 54–57% of true claims are. The two wordings of 60 equivalent HPOBench propositions got opposite labels in 41–60 of 60 pairs. Under a three-way prior, 92–96% of true LOWER claims are ones the panel did not expect. | Pre-registered V1 supported |
 | **D. The frontier does not move** | 19 harnesses across two generators were tested on fresh runs, including a design-only harness (stage 8); none beats plain direct generation on SV after Holm correction (largest gain +0.25 per run). On Sonnet, lowering the prior costs precision (ρ = .87 across 13 harnesses); on Opus, the frontier shape is inconclusive (ρ = .40, 5 harnesses). | D1 supported, D2 inconclusive |
 
 **Takeaway.**
 - An LLM judge is an exploitable target for ideation optimization: it rewards moving away from the prior and pays for it in precision.
 - Harness engineering that only changes the model's internal reasoning (retrieval, roles, challenge, selection, strategy text) trades precision against surprise along a frontier; it does not push the frontier.
-- Letting the model design and read 100 cheap, even noisy, experiments before proposing increases true-and-surprising findings in 3 of 4 model × space cells; designing experiments without results does not. The one failure (Sonnet on NB201, a space it knows well) is a precision collapse.
+- Measuring a "surprise" with an LLM panel needs a direction-invariant question (higher / lower / no effect). The complement-coded version manufactured a measurement benefit in 3 pre-registered cells that disappears once corrected.
+- Once corrected, letting the model read 100 cheap experiments before proposing does not raise true-and-surprising findings in this study, apart from a post hoc lead for Opus at strict surprise thresholds.
 
 The full report is in Chinese: [REPORT.md](REPORT.md). It covers background, related work, every stage, verdicts, limitations, and cost.
 
@@ -109,6 +118,9 @@ experiments/harness/
   s8.py                         stage 8: design-only harness, no results (Opus, Sonnet)
   fc_space.py, fc_space.json    second space: HPOBench tabular MLP claim space (derived statistics)
   s9.py                         stage 9: BASE / judge harness / measurement on the second space
+  s10.py, s11.py                stage 10: GPT generator (running); stage 11: causal test of the Sonnet x NB201 failure
+  s12.py, s12_post.py           stage 12: three-way prior, rescoring of every cached run; threshold sweep and R
+  s12_verify_*.py, s12_rmulti.py  the direction-bias diagnosis and R with multi-covariate calibration (no API calls)
   PREREG_s*.md, RESULT_s*.md    pre-registrations (written before any call) and results, in Chinese
   out/, out2/                   every LLM call, cached by content (prompts' outputs, priors, judge scores, optimizer logs)
 ```
@@ -118,7 +130,7 @@ experiments/harness/
 ```bash
 pip install -r requirements.txt
 cd experiments/harness
-python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze && python3 s6.py analyze && python3 s7.py analyze && python3 s8.py analyze && python3 s9.py analyze   # no API calls, reads the caches
+python3 s1_analyze.py && python3 s2_analyze.py && python3 s3_analyze.py && python3 s4.py analyze && python3 s5.py analyze && python3 s6.py analyze && python3 s7.py analyze && python3 s8.py analyze && python3 s9.py analyze && python3 s12.py analyze && python3 s12_post.py   # no API calls, reads the caches
 python3 ../../figures/make_frontier.py
 ```
 
