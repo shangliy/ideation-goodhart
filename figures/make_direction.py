@@ -2,6 +2,8 @@
 # original metric, the corrected metric (SV3) and the threshold-free score R. Data: experiments/harness/s12_results.json, s12_paper.json, run caches.
 import os,sys,json,matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 import numpy as np
+# TrueType embedding and a Times-like face: AAAI rejects Type 3 fonts, which matplotlib's PDF backend uses by default
+matplotlib.rcParams.update({'pdf.fonttype':42,'ps.fonttype':42,'font.family':'STIXGeneral','mathtext.fontset':'stix'})
 HERE=os.path.dirname(os.path.abspath(__file__)); H=os.path.join(HERE,'..','experiments','harness'); sys.path.insert(0,H); os.chdir(H)
 import s12
 SURF,INK,INK2,GRID='#fcfcfb','#0b0b0b','#52514e','#e4e3df'; BLUE,ORANGE,AQUA='#2a78d6','#eb6834','#1baf7a'
@@ -21,7 +23,7 @@ for i,(sp,g,_) in enumerate(CELLS):
     a.scatter([i],[d],s=36,facecolor=SURF,edgecolor=INK,linewidth=1.5,zorder=3); a.scatter([i],[m],s=36,color=INK,edgecolor=SURF,linewidth=1.5,zorder=3)
     a.annotate(f'{m:.2f}',(i,m),xytext=(7,0),textcoords='offset points',fontsize=7,color=INK2,va='center')
 a.set_xticks(x); a.set_xticklabels([c[2] for c in CELLS]); a.set_ylim(0,0.7); a.set_xlim(-0.5,3.7)
-a.set_title('(a) Share of "higher" hypotheses',fontsize=8.5,color=INK,loc='left')
+a.set_title('(a) Share of \u201chigher\u201d hypotheses',fontsize=8.5,color=INK,loc='left')
 a.scatter([],[],s=30,facecolor=SURF,edgecolor=INK,label='direct'); a.scatter([],[],s=30,color=INK,label='measure-first')
 a.legend(frameon=False,fontsize=7,labelcolor=INK2,loc='lower left',ncol=2,handletextpad=0.2,columnspacing=0.8)
 S=[('original $\\Delta$SV',ORANGE,[M3[f'{sp}_{g}']['sens']['old@50'] for sp,g,_ in CELLS]),
@@ -31,7 +33,7 @@ w=0.26
 for k,(lab,col,v) in enumerate(S):
     xs=x+(k-1)*w
     b.bar(xs,v,width=w-0.03,color=col,label=lab,zorder=3)
-    for xx,vv in zip(xs,v): b.annotate(f'{vv:+.2f}',(xx,vv),xytext=(0,2 if vv>=0 else -2),textcoords='offset points',ha='center',va='bottom' if vv>=0 else 'top',fontsize=6,color=INK2)
+    for xx,vv in zip(xs,v): b.annotate(f'{vv:+.2f}'.replace('-','\u2212'),(xx,vv),xytext=(0,2 if vv>=0 else -2),textcoords='offset points',ha='center',va='bottom' if vv>=0 else 'top',fontsize=6,color=INK2)
 b.axhline(0,color=INK2,linewidth=0.8,zorder=2)
 b.set_xticks(x); b.set_xticklabels([c[2] for c in CELLS]); b.set_ylim(-2.35,2.2)
 b.set_title('(b) Measure-first minus direct, per run',fontsize=8.5,color=INK,loc='left')
